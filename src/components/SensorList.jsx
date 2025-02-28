@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import "./style.css";
 
-const SensorList = ({ sensores }) => {
+const SensorList = ({ sensores = [] }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const sensoresPerPage = 5;
-    const totalPages = Math.ceil(sensores.length / sensoresPerPage);
+
+    // Verificar que sensores sea un array antes de calcular totalPages
+    const totalPages = Array.isArray(sensores) && sensores.length > 0 ? Math.ceil(sensores.length / sensoresPerPage) : 1;
 
     // Calcular los índices de los registros a mostrar
     const indexOfLastSensor = currentPage * sensoresPerPage;
     const indexOfFirstSensor = indexOfLastSensor - sensoresPerPage;
-    const currentSensores = sensores.slice(indexOfFirstSensor, indexOfLastSensor);
+
+    // Validar sensores antes de hacer slice
+    const currentSensores = Array.isArray(sensores) ? sensores.slice(indexOfFirstSensor, indexOfLastSensor) : [];
 
     // Cambiar de página
     const nextPage = () => {
