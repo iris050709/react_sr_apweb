@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import "./style.css";
+import "../style.css";
 
-const AlertList = ({ alertas }) => {
+const UsersList = ({ users }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
-    const totalPages = Math.ceil(alertas.length / itemsPerPage);
+    const usersPerPage = 5;
+    const totalPages = Math.ceil(users.length / usersPerPage);
 
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = alertas.slice(indexOfFirstItem, indexOfLastItem);
+    // Calcular el índice del primer y último usuario a mostrar
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
+    // Cambiar de página
     const nextPage = () => {
         if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
@@ -24,30 +26,32 @@ const AlertList = ({ alertas }) => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>ID Usuario</th>
-                        <th>Mensaje</th>
-                        <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Rol</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {currentItems.length > 0 ? (
-                        currentItems.map((alerta) => (
-                            <tr key={alerta.id}>
-                                <td>{alerta.id}</td>
-                                <td>{alerta.usuario_id ? alerta.usuario_id : "No asignado"}</td>
-                                <td>{alerta.mensaje}</td>
-                                <td>{alerta.fecha_alerta}</td>
+                    {currentUsers.length > 0 ? (
+                        currentUsers.map((usuario) => (
+                            <tr key={usuario.id}>
+                                <td>{usuario.id}</td>
+                                <td>{usuario.nombre}</td>
+                                <td>{usuario.correo}</td>
+                                <td>{usuario.rol}</td>
                             </tr>
                         ))
                     ) : (
                         <tr>
                             <td colSpan="4" className="text-center">
-                                No hay alertas disponibles
+                                No hay usuarios disponibles
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
+            
+            {/* Controles de paginación */}
             <div className="pagination">
                 <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
                 <span>Página {currentPage} de {totalPages}</span>
@@ -57,4 +61,4 @@ const AlertList = ({ alertas }) => {
     );
 };
 
-export default AlertList;
+export default UsersList;

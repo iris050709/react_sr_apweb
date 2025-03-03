@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import "./style.css";
+import "../style.css";
 
-const RegistroSensorList = ({ registros }) => {
+const RiegoList = ({ riegos }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const registrosPerPage = 5;
-    const totalPages = Math.ceil(registros.length / registrosPerPage);
+    const riegosPerPage = 5;
+    const totalPages = Math.ceil(riegos.length / riegosPerPage);
 
     // Calcular los índices de los registros a mostrar
-    const indexOfLastRegistro = currentPage * registrosPerPage;
-    const indexOfFirstRegistro = indexOfLastRegistro - registrosPerPage;
-    const currentRegistros = registros.slice(indexOfFirstRegistro, indexOfLastRegistro);
+    const indexOfLastRiego = currentPage * riegosPerPage;
+    const indexOfFirstRiego = indexOfLastRiego - riegosPerPage;
+    const currentRiegos = riegos.slice(indexOfFirstRiego, indexOfLastRiego);
 
     // Cambiar de página
     const nextPage = () => {
@@ -26,25 +26,27 @@ const RegistroSensorList = ({ registros }) => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>ID Sensor</th>
-                        <th>Valor</th>
-                        <th>Fecha de Registro</th>
+                        <th>ID Válvula</th>
+                        <th>Cantidad de Agua (L)</th>
+                        <th>Duración (min)</th>
+                        <th>Fecha de Riego</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {currentRegistros.length > 0 ? (
-                        currentRegistros.map((registro) => (
-                            <tr key={registro.id}>
-                                <td>{registro.id}</td>
-                                <td>{registro.sensor_id ? registro.sensor_id : "No asignado"}</td>
-                                <td>{registro.valor}</td>
-                                <td>{registro.fecha_registro}</td>
+                    {currentRiegos.length > 0 ? (
+                        currentRiegos.map((riego) => (
+                            <tr key={riego.id}>
+                                <td>{riego.id}</td>
+                                <td>{riego.valvula_id ? riego.valvula_id : "No asignado"}</td>
+                                <td>{riego.cantidad_agua}</td>
+                                <td>{riego.duracion}</td>
+                                <td>{riego.fecha_riego}</td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="4" className="text-center">
-                                No hay registros de sensores disponibles
+                            <td colSpan="5" className="text-center">
+                                No hay registros de riego disponibles
                             </td>
                         </tr>
                     )}
@@ -59,4 +61,4 @@ const RegistroSensorList = ({ registros }) => {
     );
 };
 
-export default RegistroSensorList;
+export default RiegoList;

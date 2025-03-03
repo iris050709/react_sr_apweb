@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style.css";
+import "../style.css";
 
 const RiegoConfigList = ({ configuraciones }) => {
     const [currentPage, setCurrentPage] = useState(1);

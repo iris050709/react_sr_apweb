@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import "./style.css";
+import "../style.css";
 
-const SensorList = ({ sensores = [] }) => {
+const ValvulaList = ({ valvulas }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const sensoresPerPage = 5;
+    const valvulasPerPage = 5;
+    const totalPages = Math.ceil(valvulas.length / valvulasPerPage);
 
-    // Verificar que sensores sea un array antes de calcular totalPages
-    const totalPages = Array.isArray(sensores) && sensores.length > 0 ? Math.ceil(sensores.length / sensoresPerPage) : 1;
-
-    // Calcular los índices de los registros a mostrar
-    const indexOfLastSensor = currentPage * sensoresPerPage;
-    const indexOfFirstSensor = indexOfLastSensor - sensoresPerPage;
-
-    // Validar sensores antes de hacer slice
-    const currentSensores = Array.isArray(sensores) ? sensores.slice(indexOfFirstSensor, indexOfLastSensor) : [];
+    // Calcular el índice del primer y último usuario a mostrar
+    const indexOfLastValvula = currentPage * valvulasPerPage;
+    const indexOfFirstValvula = indexOfLastValvula - valvulasPerPage;
+    const currentValvulas = valvulas.slice(indexOfFirstValvula, indexOfLastValvula);
 
     // Cambiar de página
     const nextPage = () => {
@@ -31,31 +27,35 @@ const SensorList = ({ sensores = [] }) => {
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Tipo</th>
                         <th>Ubicación</th>
+                        <th>Estado</th>
                         <th>Fecha de Instalación</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {currentSensores.length > 0 ? (
-                        currentSensores.map((sensor) => (
-                            <tr key={sensor.id}>
-                                <td>{sensor.id}</td>
-                                <td>{sensor.nombre}</td>
-                                <td>{sensor.tipo}</td>
-                                <td>{sensor.ubicacion || "No especificado"}</td>
-                                <td>{sensor.fecha_instalacion}</td>
+                    {currentValvulas.length > 0 ? (
+                        currentValvulas.map((valvula) => (
+                            <tr key={valvula.id}>
+                                <td>{valvula.id}</td>
+                                <td>{valvula.nombre}</td>
+                                <td>{valvula.ubicacion || "No especificado"}</td>
+                                <td className={valvula.estado === "Abierta" ? "estado-abierto" : "estado-cerrado"}>
+                                    {valvula.estado}
+                                </td>
+                                <td>{valvula.fecha_instalacion}</td>
                             </tr>
                         ))
                     ) : (
                         <tr>
                             <td colSpan="5" className="text-center">
-                                No hay sensores registrados
+                                No hay válvulas registradas
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
+            
+            {/* Controles de paginación */}
             <div className="pagination">
                 <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
                 <span>Página {currentPage} de {totalPages}</span>
@@ -65,4 +65,4 @@ const SensorList = ({ sensores = [] }) => {
     );
 };
 
-export default SensorList;
+export default ValvulaList;
