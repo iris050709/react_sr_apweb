@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get_all_riegos } from "../services/RiegoService";
+import { getAllRiegos, createRiego, updateRiego, deleteRiego } from "../services/RiegoService";
 
 export default function useRiegos() {
     const [riegos, setRiegos] = useState([]);
@@ -11,14 +11,30 @@ export default function useRiegos() {
 
     const fetchRiegos = async () => {
         try {
-            const data = await get_all_riegos();
+            setLoading(true);
+            const data = await getAllRiegos();
             setRiegos(data);
         } catch (error) {
-            console.error("Error al obtener registros de riego: ", error);
+            console.error("Error al obtener los riegos:", error);
         } finally {
             setLoading(false);
         }
     };
 
-    return { riegos, loading };
+    const addRiego = async (nuevoRiego) => {
+        await createRiego(nuevoRiego);
+        fetchRiegos();
+    };
+
+    const editRiego = async (riegoId, riegoData) => {
+        await updateRiego(riegoId, riegoData);
+        fetchRiegos();
+    };
+
+    const removeRiego = async (riegoId) => {
+        await deleteRiego(riegoId);
+        fetchRiegos();
+    };
+
+    return { riegos, loading, addRiego, editRiego, removeRiego };
 }

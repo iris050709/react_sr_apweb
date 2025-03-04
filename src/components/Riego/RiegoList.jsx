@@ -1,24 +1,18 @@
 import React, { useState } from "react";
 import "../style.css";
 
-const RiegoList = ({ riegos }) => {
+const RiegoList = ({ riegos, onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const riegosPerPage = 5;
-    const totalPages = Math.ceil(riegos.length / riegosPerPage);
 
-    // Calcular los índices de los registros a mostrar
     const indexOfLastRiego = currentPage * riegosPerPage;
     const indexOfFirstRiego = indexOfLastRiego - riegosPerPage;
     const currentRiegos = riegos.slice(indexOfFirstRiego, indexOfLastRiego);
 
-    // Cambiar de página
-    const nextPage = () => {
-        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-    };
+    const totalPages = Math.ceil(riegos.length / riegosPerPage);
 
-    const prevPage = () => {
-        if (currentPage > 1) setCurrentPage(currentPage - 1);
-    };
+    const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
     return (
         <div className="table-container">
@@ -30,6 +24,7 @@ const RiegoList = ({ riegos }) => {
                         <th>Cantidad de Agua (L)</th>
                         <th>Duración (min)</th>
                         <th>Fecha de Riego</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,21 +36,45 @@ const RiegoList = ({ riegos }) => {
                                 <td>{riego.cantidad_agua}</td>
                                 <td>{riego.duracion}</td>
                                 <td>{riego.fecha_riego}</td>
+                                <td>
+                                    <button type="button" className="edit-btn" onClick={() => onEdit(riego)}>
+                                        Editar
+                                    </button>
+                                    <button 
+                                        type="button" 
+                                        className="delete-btn" 
+                                        onClick={() => onDelete(riego.id)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="5" className="text-center">
-                                No hay registros de riego disponibles
-                            </td>
+                            <td colSpan="6" className="text-center">No hay registros de riego disponibles</td>
                         </tr>
                     )}
                 </tbody>
             </table>
             <div className="pagination">
-                <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
-                <span>Página {currentPage} de {totalPages}</span>
-                <button onClick={nextPage} disabled={currentPage === totalPages}>Siguiente &raquo;</button>
+                <button 
+                    type="button" 
+                    onClick={prevPage} 
+                    disabled={currentPage === 1}
+                    aria-label="Página anterior"
+                >
+                    « Anterior
+                </button>
+                <span>Página {currentPage} de {totalPages || 1}</span>
+                <button 
+                    type="button" 
+                    onClick={nextPage} 
+                    disabled={currentPage >= totalPages}
+                    aria-label="Página siguiente"
+                >
+                    Siguiente »
+                </button>
             </div>
         </div>
     );

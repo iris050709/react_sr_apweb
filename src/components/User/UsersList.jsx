@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../style.css";
 
-const UsersList = ({ users }) => {
+const UsersList = ({ users, onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 5;
     const totalPages = Math.ceil(users.length / usersPerPage);
@@ -29,6 +29,7 @@ const UsersList = ({ users }) => {
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Rol</th>
+                        <th>Acciones</th> {/* Nueva columna para las acciones */}
                     </tr>
                 </thead>
                 <tbody>
@@ -39,18 +40,22 @@ const UsersList = ({ users }) => {
                                 <td>{usuario.nombre}</td>
                                 <td>{usuario.correo}</td>
                                 <td>{usuario.rol}</td>
+                                <td>
+                                    <button onClick={() => onEdit(usuario)}>Editar</button>
+                                    <button onClick={() => onDelete(usuario.id)}>Eliminar</button>
+                                </td> {/* Botones de editar y eliminar */}
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="4" className="text-center">
+                            <td colSpan="5" className="text-center"> {/* Cambié colSpan a 5 porque hay una nueva columna */}
                                 No hay usuarios disponibles
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
-            
+
             {/* Controles de paginación */}
             <div className="pagination">
                 <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>

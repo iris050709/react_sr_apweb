@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../style.css";
 
-const ValvulaList = ({ valvulas }) => {
+const ValvulaList = ({ valvulas, onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const valvulasPerPage = 5;
     const totalPages = Math.ceil(valvulas.length / valvulasPerPage);
@@ -30,6 +30,7 @@ const ValvulaList = ({ valvulas }) => {
                         <th>Ubicación</th>
                         <th>Estado</th>
                         <th>Fecha de Instalación</th>
+                        <th>Acciones</th> {/* Columna de acciones */}
                     </tr>
                 </thead>
                 <tbody>
@@ -43,11 +44,16 @@ const ValvulaList = ({ valvulas }) => {
                                     {valvula.estado}
                                 </td>
                                 <td>{valvula.fecha_instalacion}</td>
+                                <td>
+                                    {/* Botones de editar y eliminar */}
+                                    <button onClick={() => onEdit(valvula)}>Editar</button>
+                                    <button onClick={() => onDelete(valvula.id)}>Eliminar</button>
+                                </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="5" className="text-center">
+                            <td colSpan="6" className="text-center">
                                 No hay válvulas registradas
                             </td>
                         </tr>
