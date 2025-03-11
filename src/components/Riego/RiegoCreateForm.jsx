@@ -9,9 +9,12 @@ const RiegoCreateForm = ({ onCreate }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("Datos enviados:", riego);
         onCreate(riego);
         setRiego({ valvula_id: "", cantidad_agua: "", duracion: "", fecha_riego: "" });
     };
+    
+    
 
     return (
         <form onSubmit={handleSubmit}>

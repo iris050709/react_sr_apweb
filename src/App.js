@@ -34,7 +34,7 @@ const App = () => {
     const { alertas, loading: loadingAlerts, addAlert, editAlert, removeAlert } = useAlerts();
     const { configuraciones, loading: loadingConfig, addConfig, updateConfig, deleteConfig } = useRiegoConfig();
     const { registros, loading: loadingRegistros, addRegistro, updateRegistro, deleteRegistro } = useRegistrosSensor();
-    const { riegos, loading: loadingRiegos, addRiego, updateRiego, deleteRiego } = useRiegos();
+    const { riegos, loading: loadingRiegos, addRiego, editRiego, removeRiego } = useRiegos();
     const { sensores, loading: loadingSensores, addSensor, editSensor, removeSensor } = useSensores();
     const { valvulas, loading: loadingValvulas, addValvula, editValvula, removeValvula } = useValvulas(); // Using the valvula hook
     const [editingValvula, setEditingValvula] = useState(null);
@@ -151,7 +151,7 @@ const App = () => {
                 {loadingRiegos ? <p className="loading-text">Cargando registros de riego...</p> : <RiegoList 
                     riegos={riegos} 
                     onEdit={(riego) => setEditingRiego(riego)} 
-                    onDelete={deleteRiego} 
+                    onDelete={removeRiego} 
                 />}
             </div>
 
@@ -160,7 +160,7 @@ const App = () => {
                 {editingRiego ? (
                     <RiegoEditForm 
                         riego={editingRiego} 
-                        onUpdate={updateRiego}
+                        onUpdate={editRiego}
                         onCancel={() => setEditingRiego(null)} 
                     />
                 ) : (

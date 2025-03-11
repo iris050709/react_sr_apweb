@@ -3,15 +3,14 @@ import React, { useState, useEffect } from "react";
 const RiegoEditForm = ({ riego, onUpdate, onCancel }) => {
   const [updatedRiego, setUpdatedRiego] = useState(riego);
 
-  // Update form state if riego changes
   useEffect(() => {
     setUpdatedRiego(riego);
   }, [riego]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate(updatedRiego); // Call onUpdate to update the riego
-    onCancel(); // Close the form
+    onUpdate(updatedRiego); // Llamar a onUpdate para actualizar el riego
+    onCancel(); // Cerrar el formulario
   };
 
   return (
@@ -47,5 +46,6 @@ const RiegoEditForm = ({ riego, onUpdate, onCancel }) => {
     </form>
   );
 };
+
 
 export default RiegoEditForm;
