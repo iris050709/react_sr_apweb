@@ -9,9 +9,9 @@ const ValvulaEditForm = ({ valvula, onUpdate, onCancel }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const updatedValvula = { nombre, ubicacion, estado};
-        onUpdate(valvula.id, updatedValvula);
-    };
+        const updatedValvula = { nombre, ubicacion, estado };
+        onUpdate(valvula.id, updatedValvula); 
+    };    
 
     useEffect(() => {
         setNombre(valvula.nombre);

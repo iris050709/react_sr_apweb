@@ -23,26 +23,20 @@ export default function useValvulas() {
         }
     };
 
-    const addValvula = async (newValvula) => {
-        const createdValvula = await createValvula(newValvula);
-        if (createdValvula) {
-            setValvulas([...valvulas, createdValvula]);
-        }
+    const addValvula = async (nuevaValvula) => {
+        await createValvula(nuevaValvula);
+        fetchValvulas();
     };
 
-    const updateValvula = async (id, updatedValvula) => {
-        const updated = await updateValvula(id, updatedValvula);
-        if (updated) {
-            setValvulas(valvulas.map((valvula) => (valvula.id === id ? updated : valvula)));
-        }
+    const editValvula = async (valvulaId, valvulaData) => {
+        await updateValvula(valvulaId, valvulaData);
+        fetchValvulas();
     };
 
-    const deleteValvula = async (id) => {
-        const deleted = await deleteValvula(id);
-        if (deleted) {
-            setValvulas(valvulas.filter((valvula) => valvula.id !== id));
-        }
+    const removeValvula = async (valvulaId) => {
+        await deleteValvula(valvulaId);
+        fetchValvulas();
     };
 
-    return { valvulas, loading, addValvula, updateValvula, deleteValvula };
+    return { valvulas, loading, addValvula, editValvula, removeValvula };
 }

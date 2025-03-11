@@ -29,7 +29,7 @@ const UsersList = ({ users, onEdit, onDelete }) => {
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Rol</th>
-                        <th>Acciones</th> {/* Nueva columna para las acciones */}
+                        <th>Acciones</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -43,20 +43,18 @@ const UsersList = ({ users, onEdit, onDelete }) => {
                                 <td>
                                     <button onClick={() => onEdit(usuario)}>Editar</button>
                                     <button onClick={() => onDelete(usuario.id)}>Eliminar</button>
-                                </td> {/* Botones de editar y eliminar */}
+                                </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="5" className="text-center"> {/* Cambié colSpan a 5 porque hay una nueva columna */}
+                            <td colSpan="5" className="text-center">
                                 No hay usuarios disponibles
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
-
-            {/* Controles de paginación */}
             <div className="pagination">
                 <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
                 <span>Página {currentPage} de {totalPages}</span>

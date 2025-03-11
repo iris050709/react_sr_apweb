@@ -42,7 +42,8 @@ export async function updateValvula(id, updatedValvula) {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-            },
+                "Accept": "application/json",
+            },            
             body: JSON.stringify(updatedValvula),
         });
 

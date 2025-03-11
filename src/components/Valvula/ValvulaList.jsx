@@ -23,16 +23,16 @@ const ValvulaList = ({ valvulas, onEdit, onDelete }) => {
     return (
         <div className="table-container">
             <table className="styled-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Ubicación</th>
-                        <th>Estado</th>
-                        <th>Fecha de Instalación</th>
-                        <th>Acciones</th> {/* Columna de acciones */}
-                    </tr>
-                </thead>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Ubicación</th>
+                    <th>Estado</th>
+                    <th>Fecha de Instalación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
                 <tbody>
                     {currentValvulas.length > 0 ? (
                         currentValvulas.map((valvula) => (
@@ -45,7 +45,6 @@ const ValvulaList = ({ valvulas, onEdit, onDelete }) => {
                                 </td>
                                 <td>{valvula.fecha_instalacion}</td>
                                 <td>
-                                    {/* Botones de editar y eliminar */}
                                     <button onClick={() => onEdit(valvula)}>Editar</button>
                                     <button onClick={() => onDelete(valvula.id)}>Eliminar</button>
                                 </td>
@@ -61,7 +60,6 @@ const ValvulaList = ({ valvulas, onEdit, onDelete }) => {
                 </tbody>
             </table>
             
-            {/* Controles de paginación */}
             <div className="pagination">
                 <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
                 <span>Página {currentPage} de {totalPages}</span>
