@@ -12,11 +12,10 @@ export async function getAllRiegos() {
 }
 
 export async function createRiego(riego) {
-    // Asegúrate de convertir los valores de cantidad_agua y duracion a los tipos correctos
     const riegoData = {
         ...riego,
-        cantidad_agua: parseFloat(riego.cantidad_agua),  // Convierte a número flotante
-        duracion: parseInt(riego.duracion, 10),          // Convierte a número entero
+        cantidad_agua: parseFloat(riego.cantidad_agua), 
+        duracion: parseInt(riego.duracion, 10),       
     };
 
     try {
