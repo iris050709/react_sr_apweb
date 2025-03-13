@@ -13,15 +13,24 @@ export async function getAllUsers() {
     }
 }
 
-export async function createUser(user) {
+export async function createUser(user, foto) {
     try {
+        const formData = new FormData();
+        formData.append('nombre', user.nombre);
+        formData.append('correo', user.correo);
+        formData.append('password', user.password);
+        formData.append('rol', user.rol);
+        formData.append('fecha_nacimiento', user.fecha_nacimiento);
+        formData.append('sexo', user.sexo);
+        if (foto) {
+            formData.append('foto', foto);
+        }
+
         const response = await fetch(BASE_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
+            body: formData,
         });
+
         if (!response.ok) {
             throw new Error("Error al crear el usuario");
         }
@@ -31,15 +40,25 @@ export async function createUser(user) {
     }
 }
 
-export async function updateUser(userId, user) {
+
+export async function updateUser(userId, user, foto) {
     try {
+        const formData = new FormData();
+        formData.append('nombre', user.nombre);
+        formData.append('correo', user.correo);
+        formData.append('password', user.password);
+        formData.append('rol', user.rol);
+        formData.append('fecha_nacimiento', user.fecha_nacimiento);
+        formData.append('sexo', user.sexo);
+        if (foto) {
+            formData.append('foto', foto);
+        }
+
         const response = await fetch(`${BASE_URL}${userId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
+            body: formData,
         });
+
         if (!response.ok) {
             throw new Error("Error al actualizar el usuario");
         }
@@ -48,6 +67,7 @@ export async function updateUser(userId, user) {
         console.error("Error en updateUser:", error);
     }
 }
+
 
 export async function deleteUser(userId) {
     try {

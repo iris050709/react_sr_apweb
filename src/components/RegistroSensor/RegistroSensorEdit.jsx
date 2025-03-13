@@ -11,9 +11,9 @@ const RegistroSensorEditForm = ({ registro, onUpdate, onCancel }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const updatedRegistro = { ...registro, sensor_id, valor};
-        onUpdate(updatedRegistro);
-    };
+        const updatedRegistro = { ...registro, sensor_id, valor };  // Se crea un objeto con los datos actualizados
+        onUpdate(updatedRegistro);  // Pasa el objeto completo, incluyendo el id
+    };    
 
     return (
         <div className="form-container">

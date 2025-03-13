@@ -1,46 +1,58 @@
 import { useEffect, useState } from "react";
-import { getAllRegistrosSensor, createRegistroSensor, updateRegistroSensor, deleteRegistroSensor } from "../services/RegistroSensorService";
+import { 
+    getAllRegistrosSensor, 
+    createRegistroSensor, 
+    updateRegistroSensor, 
+    deleteRegistroSensor 
+} from "../services/RegistroSensorService";
 
 export default function useRegistrosSensor() {
     const [registros, setRegistros] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchRegistrosSensor();
+        fetchRegistros();
     }, []);
 
-    const fetchRegistrosSensor = async () => {
+    const fetchRegistros = async () => {
         try {
             setLoading(true);
             const data = await getAllRegistrosSensor();
             setRegistros(data);
         } catch (error) {
-            console.error("Error al obtener registros de sensores: ", error);
+            console.error("Error al obtener registros de sensores:", error);
         } finally {
             setLoading(false);
         }
     };
 
-    const addRegistro = async (newRegistro) => {
-        const createdRegistro = await createRegistroSensor(newRegistro);
-        if (createdRegistro) {
-            setRegistros([...registros, createdRegistro]);
+    const addRegistro = async (nuevoRegistro) => {
+        try {
+            await createRegistroSensor(nuevoRegistro);
+            fetchRegistros();
+        } catch (error) {
+            console.error("Error al agregar registro de sensor:", error);
         }
     };
 
-    const updateRegistro = async (id, updatedRegistro) => {
-        const updated = await updateRegistroSensor(id, updatedRegistro);
-        if (updated) {
-            setRegistros(registros.map((registro) => (registro.id === id ? updated : registro)));
+    const editRegistro = async (registroData) => {
+        try {
+            // Asegúrate de pasar solo el ID del registro a la función de actualización
+            await updateRegistroSensor(registroData.id, registroData);
+            fetchRegistros();
+        } catch (error) {
+            console.error("Error al actualizar registro de sensor:", error);
+        }
+    };    
+
+    const removeRegistro = async (registroId) => {
+        try {
+            await deleteRegistroSensor(registroId);
+            fetchRegistros();
+        } catch (error) {
+            console.error("Error al eliminar registro de sensor:", error);
         }
     };
 
-    const deleteRegistro = async (id) => {
-        const deleted = await deleteRegistroSensor(id);
-        if (deleted) {
-            setRegistros(registros.filter((registro) => registro.id !== id));
-        }
-    };
-
-    return { registros, loading, addRegistro, updateRegistro, deleteRegistro };
+    return { registros, loading, addRegistro, editRegistro, removeRegistro };
 }

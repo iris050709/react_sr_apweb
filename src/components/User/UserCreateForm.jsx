@@ -8,6 +8,7 @@ const UserCreateForm = ({ onCreate }) => {
     const [fechaNacimiento, setFechaNacimiento] = useState('');
     const [sexo, setSexo] = useState('');
     const [foto, setFoto] = useState('');
+    const [error, setError] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,6 +38,22 @@ const UserCreateForm = ({ onCreate }) => {
         setFechaNacimiento('');
         setSexo('');
         setFoto('');
+        setError('');
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        
+        if (file) {
+            const fileType = file.type.split('/')[0];
+            if (fileType !== 'image') {
+                setError('Por favor, sube un archivo de imagen válido');
+                setFoto('');
+            } else {
+                setError('');
+                setFoto(file);
+            }
+        }
     };
 
     return (
@@ -99,8 +116,9 @@ const UserCreateForm = ({ onCreate }) => {
                 <label>Foto</label>
                 <input 
                     type="file" 
-                    onChange={(e) => setFoto(e.target.files[0])}
+                    onChange={handleFileChange}
                 />
+                {error && <p style={{ color: 'red' }}>{error}</p>}
             </div>
             <button type="submit">Crear Usuario</button>
         </form>

@@ -33,7 +33,7 @@ const App = () => {
     const { users, loading: loadingUsers, addUser, updateUser, deleteUser } = useUsers();
     const { alertas, loading: loadingAlerts, addAlert, editAlert, removeAlert } = useAlerts();
     const { configuraciones, loading: loadingConfig, addConfig, updateConfig, deleteConfig } = useRiegoConfig();
-    const { registros, loading: loadingRegistros, addRegistro, updateRegistro, deleteRegistro } = useRegistrosSensor();
+    const { registros, loading: loadingRegistros, addRegistro, editRegistro, removeRegistro } = useRegistrosSensor();
     const { riegos, loading: loadingRiegos, addRiego, editRiego, removeRiego } = useRiegos();
     const { sensores, loading: loadingSensores, addSensor, editSensor, removeSensor } = useSensores();
     const { valvulas, loading: loadingValvulas, addValvula, editValvula, removeValvula } = useValvulas(); // Using the valvula hook
@@ -128,7 +128,7 @@ const App = () => {
                     <RegistroSensorList 
                         registros={registros} 
                         onEdit={(registro) => setEditingRegistro(registro)} 
-                        onDelete={deleteRegistro} 
+                        onDelete={removeRegistro} 
                     />
                 )}
             </div>
@@ -138,7 +138,7 @@ const App = () => {
                 {editingRegistro ? (
                     <RegistroSensorEditForm 
                         registro={editingRegistro} 
-                        onUpdate={updateRegistro} 
+                        onUpdate={editRegistro} 
                         onCancel={() => setEditingRegistro(null)} 
                     />
                 ) : (

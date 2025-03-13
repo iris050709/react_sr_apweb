@@ -24,11 +24,12 @@ export default function useRiegoConfig() {
         }
     };
 
-    const addConfig = async (config) => {
+    const addConfig = async (nuevaconfig) => {
         setLoading(true);
         setError(null);
+        console.log("Enviando configuración al servidor:", nuevaconfig); // Log para verificar los datos
         try {
-            await create_configuracion(config);
+            await create_configuracion(nuevaconfig);
             fetchConfiguraciones();
         } catch (error) {
             setError("Error al crear la configuración: " + error.message);
@@ -37,6 +38,7 @@ export default function useRiegoConfig() {
             setLoading(false);
         }
     };
+     
 
     const updateConfig = async (id, config) => {
         setLoading(true);

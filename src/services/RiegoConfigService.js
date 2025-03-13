@@ -13,32 +13,24 @@ export async function get_all_configuraciones() {
     }
 }
 
-export async function create_configuracion(config) {
+export const create_configuracion = async (config) => {
     try {
-        console.log("Enviando configuración al servidor:", config);
-        const response = await fetch(BASE_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+        const response = await fetch(`${BASE_URL}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(config),
         });
-
-        const responseBody = await response.json();
-        console.log("Respuesta del servidor:", responseBody);
-
         if (!response.ok) {
-            throw new Error("Error al crear la configuración: " + (responseBody.error || responseBody.message || 'Desconocido'));
+            throw new Error('Error al crear configuración');
         }
-
-        return responseBody;
+        return await response.json();
     } catch (error) {
-        console.error("Error en create_configuracion:", error.message);
+        console.error('Error en create_configuracion:', error);
         throw error;
     }
-}
-
-
-
-
+};
 
 
 export async function update_configuracion(id, config) {
