@@ -116,7 +116,7 @@ const App = () => {
                         onCancel={() => setEditingConfig(null)}
                     />
                 ) : (
-                    <RiegoConfigCreateForm onCreate={addConfig} />
+                    <RiegoConfigCreateForm onCreate={addConfig} usuarios={users}/>
                 )}
             </div>
 
