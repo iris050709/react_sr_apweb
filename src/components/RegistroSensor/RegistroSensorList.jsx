@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../style.css";
+import "../style.css"; // Asegúrate de que este archivo esté correctamente vinculado
 
 // Componente para mostrar los registros de sensores
 const RegistroSensorList = ({ registros, onEdit, onDelete, onCreate }) => {
@@ -23,8 +23,6 @@ const RegistroSensorList = ({ registros, onEdit, onDelete, onCreate }) => {
 
     return (
         <div className="table-container">
-            <h2>Lista de Registros de Sensores</h2>
-            <button onClick={() => onCreate()}>Crear Nuevo Registro</button>
             <table className="styled-table">
                 <thead>
                     <tr>
@@ -44,8 +42,22 @@ const RegistroSensorList = ({ registros, onEdit, onDelete, onCreate }) => {
                                 <td>{registro.valor}</td>
                                 <td>{registro.fecha_registro}</td>
                                 <td>
-                                    <button onClick={() => onEdit(registro)}>Editar</button>
-                                    <button onClick={() => onDelete(registro.id)}>Eliminar</button>
+                                    <div className="action-btns">
+                                        <button
+                                            type="button"
+                                            className="edit-btn"
+                                            onClick={() => onEdit(registro)}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="delete-btn"
+                                            onClick={() => onDelete(registro.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))
@@ -59,14 +71,24 @@ const RegistroSensorList = ({ registros, onEdit, onDelete, onCreate }) => {
                 </tbody>
             </table>
             <div className="pagination">
-                <button onClick={prevPage} disabled={currentPage === 1}>
-                    &laquo; Anterior
+                <button
+                    type="button"
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                    aria-label="Página anterior"
+                >
+                    « Anterior
                 </button>
                 <span>
-                    Página {currentPage} de {totalPages}
+                    Página {currentPage} de {totalPages || 1}
                 </span>
-                <button onClick={nextPage} disabled={currentPage === totalPages}>
-                    Siguiente &raquo;
+                <button
+                    type="button"
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                    aria-label="Página siguiente"
+                >
+                    Siguiente »
                 </button>
             </div>
         </div>

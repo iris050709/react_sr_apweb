@@ -44,20 +44,22 @@ const AlertList = ({ alertas, onDelete, onEdit }) => {
                                         : "Fecha inválida"}
                                 </td>
                                 <td>
-                                    <button 
-                                        type="button" 
-                                        className="edit-btn" 
-                                        onClick={() => onEdit(alerta)}
-                                    >
-                                        Editar
-                                    </button>
-                                    <button 
-                                        type="button" 
-                                        className="delete-btn" 
-                                        onClick={() => onDelete(alerta.id)}
-                                    >
-                                        Eliminar
-                                    </button>
+                                    <div className="action-btns">
+                                        <button 
+                                            type="button" 
+                                            className="edit-btn" 
+                                            onClick={() => onEdit(alerta)}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            className="delete-btn" 
+                                            onClick={() => onDelete(alerta.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './RiegoEditForm.css'; // Importa el archivo de estilos
 
 const RiegoEditForm = ({ riego, onUpdate, onCancel }) => {
   const [updatedRiego, setUpdatedRiego] = useState(riego);
@@ -10,42 +11,41 @@ const RiegoEditForm = ({ riego, onUpdate, onCancel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdate(updatedRiego); // Llamar a onUpdate para actualizar el riego
-    onCancel(); // Cerrar el formulario
+    onCancel(); // Volver a la vista de creación
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <div className="form-container">
+      <h2>Editar Riego</h2>
+      <form className="riego-form" onSubmit={handleSubmit}>
         <label>ID Válvula:</label>
         <input
+          className="input-field"
           type="text"
           value={updatedRiego.valvula_id || ""}
           onChange={(e) => setUpdatedRiego({ ...updatedRiego, valvula_id: e.target.value })}
         />
-      </div>
-      <div>
-        <label>Cantidad de Agua:</label>
+        <label>Cantidad de Agua (L):</label>
         <input
+          className="input-field"
           type="number"
           value={updatedRiego.cantidad_agua || ""}
           onChange={(e) => setUpdatedRiego({ ...updatedRiego, cantidad_agua: e.target.value })}
         />
-      </div>
-      <div>
-        <label>Duración:</label>
+        <label>Duración (min):</label>
         <input
+          className="input-field"
           type="number"
           value={updatedRiego.duracion || ""}
           onChange={(e) => setUpdatedRiego({ ...updatedRiego, duracion: e.target.value })}
         />
-      </div>
-      <div>
-        <button type="submit">Actualizar</button>
-        <button type="button" onClick={onCancel}>Cancelar</button>
-      </div>
-    </form>
+        <div className="form-buttons">
+          <button className="submit-button" type="submit">Actualizar</button>
+          <button className="cancel-button" type="button" onClick={onCancel}>Cancelar</button>
+        </div>
+      </form>
+    </div>
   );
 };
-
 
 export default RiegoEditForm;

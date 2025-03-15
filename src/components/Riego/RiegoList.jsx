@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../style.css";
+import "../style.css"; // Asegúrate de que este archivo esté correctamente vinculado
 
 const RiegoList = ({ riegos, onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -37,39 +37,49 @@ const RiegoList = ({ riegos, onEdit, onDelete }) => {
                                 <td>{riego.duracion}</td>
                                 <td>{riego.fecha_riego}</td>
                                 <td>
-                                    <button type="button" className="edit-btn" onClick={() => onEdit(riego)}>
-                                        Editar
-                                    </button>
-                                    <button 
-                                        type="button" 
-                                        className="delete-btn" 
-                                        onClick={() => onDelete(riego.id)}
-                                    >
-                                        Eliminar
-                                    </button>
+                                    <div className="action-btns">
+                                        <button
+                                            type="button"
+                                            className="edit-btn"
+                                            onClick={() => onEdit(riego)}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="delete-btn"
+                                            onClick={() => onDelete(riego.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="6" className="text-center">No hay registros de riego disponibles</td>
+                            <td colSpan="6" className="text-center">
+                                No hay registros de riego disponibles
+                            </td>
                         </tr>
                     )}
                 </tbody>
             </table>
             <div className="pagination">
-                <button 
-                    type="button" 
-                    onClick={prevPage} 
+                <button
+                    type="button"
+                    onClick={prevPage}
                     disabled={currentPage === 1}
                     aria-label="Página anterior"
                 >
                     « Anterior
                 </button>
-                <span>Página {currentPage} de {totalPages || 1}</span>
-                <button 
-                    type="button" 
-                    onClick={nextPage} 
+                <span>
+                    Página {currentPage} de {totalPages || 1}
+                </span>
+                <button
+                    type="button"
+                    onClick={nextPage}
                     disabled={currentPage >= totalPages}
                     aria-label="Página siguiente"
                 >

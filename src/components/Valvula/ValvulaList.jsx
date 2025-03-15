@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "../style.css";
+import "../style.css"; // Asegúrate de que este archivo esté correctamente vinculado
 
 const ValvulaList = ({ valvulas, onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const valvulasPerPage = 5;
     const totalPages = Math.ceil(valvulas.length / valvulasPerPage);
 
-    // Calcular el índice del primer y último usuario a mostrar
+    // Calcular el índice del primer y último valvula a mostrar
     const indexOfLastValvula = currentPage * valvulasPerPage;
     const indexOfFirstValvula = indexOfLastValvula - valvulasPerPage;
     const currentValvulas = valvulas.slice(indexOfFirstValvula, indexOfLastValvula);
@@ -23,16 +23,16 @@ const ValvulaList = ({ valvulas, onEdit, onDelete }) => {
     return (
         <div className="table-container">
             <table className="styled-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Ubicación</th>
-                    <th>Estado</th>
-                    <th>Fecha de Instalación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Ubicación</th>
+                        <th>Estado</th>
+                        <th>Fecha de Instalación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
                 <tbody>
                     {currentValvulas.length > 0 ? (
                         currentValvulas.map((valvula) => (
@@ -43,27 +43,57 @@ const ValvulaList = ({ valvulas, onEdit, onDelete }) => {
                                 <td className={valvula.estado === "Abierta" ? "estado-abierto" : "estado-cerrado"}>
                                     {valvula.estado}
                                 </td>
-                                <td>{valvula.fecha_instalacion}</td>
                                 <td>
-                                    <button onClick={() => onEdit(valvula)}>Editar</button>
-                                    <button onClick={() => onDelete(valvula.id)}>Eliminar</button>
+                                    {valvula.fecha_instalacion && !isNaN(new Date(valvula.fecha_instalacion).getTime()) 
+                                        ? new Intl.DateTimeFormat("es-ES").format(new Date(valvula.fecha_instalacion)) 
+                                        : "Fecha inválida"}
+                                </td>
+                                <td>
+                                    <div className="action-btns">
+                                        <button 
+                                            type="button" 
+                                            className="edit-btn" 
+                                            onClick={() => onEdit(valvula)}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            className="delete-btn" 
+                                            onClick={() => onDelete(valvula.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="6" className="text-center">
-                                No hay válvulas registradas
-                            </td>
+                            <td colSpan="6" className="text-center">No hay válvulas registradas</td>
                         </tr>
                     )}
                 </tbody>
             </table>
-            
+
             <div className="pagination">
-                <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
-                <span>Página {currentPage} de {totalPages}</span>
-                <button onClick={nextPage} disabled={currentPage === totalPages}>Siguiente &raquo;</button>
+                <button 
+                    type="button" 
+                    onClick={prevPage} 
+                    disabled={currentPage === 1}
+                    aria-label="Página anterior"
+                >
+                    « Anterior
+                </button>
+                <span>Página {currentPage} de {totalPages || 1}</span>
+                <button 
+                    type="button" 
+                    onClick={nextPage} 
+                    disabled={currentPage >= totalPages}
+                    aria-label="Página siguiente"
+                >
+                    Siguiente »
+                </button>
             </div>
         </div>
     );

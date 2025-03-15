@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../style.css";
+import "../style.css"; // Asegúrate de que este archivo esté correctamente vinculado
 
 const RiegoConfigList = ({ configuraciones, onDelete, onEdit }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,45 +32,61 @@ const RiegoConfigList = ({ configuraciones, onDelete, onEdit }) => {
                     </tr>
                 </thead>
                 <tbody>
-                {currentConfiguraciones && currentConfiguraciones.length > 0 ? (
-                    currentConfiguraciones.map((config) => (
-                        <tr key={config.id}>
-                            <td>{config.id}</td>
-                            <td>{config.usuario_id || "No asignado"}</td>
-                            <td>{config.umbral_humedad}%</td>
-                            <td>{config.horario}</td>
-                            <td>{config.activo ? "Sí" : "No"}</td>
-                            <td>
-                                <button 
-                                    type="button" 
-                                    className="edit-btn" 
-                                    onClick={() => onEdit(config)}
-                                >
-                                    Editar
-                                </button>
-                                <button 
-                                    type="button" 
-                                    className="delete-btn" 
-                                    onClick={() => onDelete(config.id)}
-                                >
-                                    Eliminar
-                                </button>
+                    {currentConfiguraciones && currentConfiguraciones.length > 0 ? (
+                        currentConfiguraciones.map((config) => (
+                            <tr key={config.id}>
+                                <td>{config.id}</td>
+                                <td>{config.usuario_id || "No asignado"}</td>
+                                <td>{config.umbral_humedad}%</td>
+                                <td>{config.horario}</td>
+                                <td>{config.activo ? "Sí" : "No"}</td>
+                                <td>
+                                    <div className="action-btns">
+                                        <button
+                                            type="button"
+                                            className="edit-btn"
+                                            onClick={() => onEdit(config)}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="delete-btn"
+                                            onClick={() => onDelete(config.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="6" className="text-center">
+                                No hay configuraciones de riego disponibles
                             </td>
                         </tr>
-                    ))
-                ) : (
-                    <tr>
-                        <td colSpan="6" className="text-center">
-                            No hay configuraciones de riego disponibles
-                        </td>
-                    </tr>
-                )}
+                    )}
                 </tbody>
             </table>
             <div className="pagination">
-                <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
-                <span>Página {currentPage} de {totalPages}</span>
-                <button onClick={nextPage} disabled={currentPage === totalPages}>Siguiente &raquo;</button>
+                <button
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                    aria-label="Página anterior"
+                >
+                    « Anterior
+                </button>
+                <span>
+                    Página {currentPage} de {totalPages || 1}
+                </span>
+                <button
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                    aria-label="Página siguiente"
+                >
+                    Siguiente »
+                </button>
             </div>
         </div>
     );

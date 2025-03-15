@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../style.css"; // Asegúrate de que este archivo esté correctamente vinculado
 
 const SensorList = ({ sensores, onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,23 +36,24 @@ const SensorList = ({ sensores, onEdit, onDelete }) => {
                                 <td>{sensor.tipo}</td>
                                 <td>{sensor.ubicacion || "No especificado"}</td>
                                 <td>
-                                {sensor.fecha_instalacion && !isNaN(new Date(sensor.fecha_instalacion).getTime()) 
-                                    ? new Intl.DateTimeFormat("es-ES").format(new Date(sensor.fecha_instalacion)) 
-                                    : "Fecha inválida"}
+                                    {sensor.fecha_instalacion && !isNaN(new Date(sensor.fecha_instalacion).getTime()) 
+                                        ? new Intl.DateTimeFormat("es-ES").format(new Date(sensor.fecha_instalacion)) 
+                                        : "Fecha inválida"}
                                 </td>
 
                                 <td>
-                                    <button type="button" className="edit-btn" onClick={() => onEdit(sensor)}>
-                                        Editar
-                                    </button>
-                                    <button 
-                                        type="button" 
-                                        className="delete-btn" 
-                                        onClick={() => onDelete(sensor.id)}
-                                    >
-                                        Eliminar
-                                    </button>
-
+                                    <div className="action-btns">
+                                        <button type="button" className="edit-btn" onClick={() => onEdit(sensor)}>
+                                            Editar
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            className="delete-btn" 
+                                            onClick={() => onDelete(sensor.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))

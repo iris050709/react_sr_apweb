@@ -56,7 +56,7 @@ const App = () => {
                 />}
             </div>
 
-            <div className="section">
+            {/*<div className="section">
                 <h1>Gestión de Usuarios</h1>
                 {editingUser ? (
                     <UserEditForm 
@@ -64,9 +64,9 @@ const App = () => {
                         onUpdate={updateUser} 
                         onCancel={() => setEditingUser(null)} 
                     />
-                ) : (<UserCreateForm onCreate={addUser} />
+                ) : (<UserCreateForm onCreate={addUser} /> 
                 )}
-            </div>
+            </div>*/}
 
             <div className="section">
                 <h1>Lista de Alertas</h1>
@@ -115,10 +115,9 @@ const App = () => {
                         onUpdate={updateConfig}
                         onCancel={() => setEditingConfig(null)}
                     />
-                ) : (
-                    <RiegoConfigCreateForm onCreate={addConfig} usuarios={users}/>
-                )}
+                ) : null /* <RiegoConfigCreateForm onCreate={addConfig} usuarios={users}/> */}
             </div>
+
 
             <div className="section">
                 <h1>Lista de Registros de Sensores</h1>
@@ -142,7 +141,7 @@ const App = () => {
                         onCancel={() => setEditingRegistro(null)} 
                     />
                 ) : (
-                    <RegistroSensorCreateForm onCreate={addRegistro} />
+                    <RegistroSensorCreateForm onCreate={addRegistro} onCancel={() => setEditingRegistro(null)}/>
                 )}
             </div>
 
