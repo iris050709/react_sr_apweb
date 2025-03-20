@@ -1,6 +1,6 @@
 // services/RegistroSensorService.js
 
-const BASE_URL = "http://127.0.0.1:5000/";
+const BASE_URL = "https://3.145.63.126/";
 
 export async function getAllRegistrosSensor() {
     try {

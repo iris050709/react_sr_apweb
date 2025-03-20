@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:5000/riegos/";
+const BASE_URL = "https://3.145.63.126/riegos/";
 
 export async function getAllRiegos() {
     try {
