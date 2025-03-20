@@ -29,7 +29,7 @@ const UsersList = ({ users, onEdit, onDelete }) => {
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Rol</th>
-                        {/* <th>Acciones</th> */}
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,10 +40,10 @@ const UsersList = ({ users, onEdit, onDelete }) => {
                                 <td>{usuario.nombre}</td>
                                 <td>{usuario.correo}</td>
                                 <td>{usuario.rol}</td>
-                                {/* <td>
+                                <td>
                                     <button onClick={() => onEdit(usuario)}>Editar</button>
                                     <button onClick={() => onDelete(usuario.id)}>Eliminar</button>
-                                </td> */}
+                                </td>
                             </tr>
                         ))
                     ) : (
