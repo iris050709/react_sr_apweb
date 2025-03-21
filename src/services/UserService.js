@@ -9,7 +9,7 @@ export async function getAllUsers() {
         return response.json();
     } catch (error) {
         console.error("Error en getAllUsers:", error);
-        return [];
+        return []; // Retornar un arreglo vacío en caso de error
     }
 }
 
@@ -40,34 +40,18 @@ export async function createUser(user, foto) {
     }
 }
 
-
-export async function updateUser(userId, user, foto) {
+export async function updateUser(userId, user) {
     try {
-        const formData = new FormData();
-        formData.append('nombre', user.nombre);
-        formData.append('correo', user.correo);
-        formData.append('password', user.password);
-        formData.append('rol', user.rol);
-        formData.append('fecha_nacimiento', user.fecha_nacimiento);
-        formData.append('sexo', user.sexo);
-        if (foto) {
-            formData.append('foto', foto);
-        }
-
         const response = await fetch(`${BASE_URL}${userId}`, {
-            method: 'PUT',
-            body: formData,
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
         });
-
-        if (!response.ok) {
-            throw new Error("Error al actualizar el usuario");
-        }
         return response.json();
     } catch (error) {
         console.error("Error en updateUser:", error);
     }
 }
-
 
 export async function deleteUser(userId) {
     try {

@@ -44,20 +44,15 @@ export default function useRiegoConfig() {
     };
 
     // Función para agregar una configuración
-    const addConfig = async (nuevaconfig) => {
-        setLoading(true);
-        setError(null);
+    const addConfig = async (nuevaConfig) => {
         try {
-            const data = await create_configuracion(nuevaconfig); // Llama a la API para crear configuración
-            console.log('Respuesta del servidor:', data);
-            fetchConfiguraciones(); // Vuelve a cargar las configuraciones después de agregar una nueva
+            await create_configuracion(nuevaConfig);
+            fetchConfiguraciones();
         } catch (error) {
-            setError("Error al crear la configuración: " + error.message);
-            console.error("Error al crear la configuración:", error);
-        } finally {
-            setLoading(false);
+            console.error("Error al agregar registro de sensor:", error);
         }
     };
+
     
     
     // Función para actualizar una configuración

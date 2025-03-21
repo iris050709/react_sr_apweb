@@ -14,7 +14,9 @@ export default function useUsers() {
     const fetchUsers = async () => {
         try {
             const data = await getAllUsers();
-            setUsers(data);
+            // Validar que los usuarios tengan los campos requeridos
+            const validUsers = data.filter(user => user.id && user.nombre); // Filtrar usuarios válidos
+            setUsers(validUsers);
         } catch (error) {
             console.error("Error al obtener usuarios:", error);
         } finally {
@@ -33,16 +35,10 @@ export default function useUsers() {
     };
 
     // Función para actualizar un usuario
-    const updateUserDetails = async (userId, user) => {
-        try {
-            const updatedUser = await updateUser(userId, user);
-            setUsers((prevUsers) =>
-                prevUsers.map((u) => (u.id === updatedUser.id ? updatedUser : u))
-            );
-        } catch (error) {
-            console.error("Error al actualizar usuario:", error);
-        }
-    };
+    const editUser = async (userId, userData) => {
+            await updateUser(userId, userData);
+            fetchUsers();
+    };   
 
     // Función para eliminar un usuario
     const deleteUserDetails = async (userId) => {
@@ -54,5 +50,5 @@ export default function useUsers() {
         }
     };
 
-    return { users, loading, addUser, updateUserDetails, deleteUserDetails };
+    return { users, loading, addUser, editUser, deleteUserDetails };
 }

@@ -30,7 +30,7 @@ import ValvulaEditForm from "./components/Valvula/ValvulaEdit"; // Component for
 import "./App.css";
 
 const App = () => {
-    const { users, loading: loadingUsers, addUser, updateUser, deleteUser } = useUsers();
+    const { users, loading: loadingUsers, addUser, editUser, deleteUserDetails } = useUsers();
     const { alertas, loading: loadingAlerts, addAlert, editAlert, removeAlert } = useAlerts();
     const { configuraciones, loading: loadingConfig, addConfig, updateConfig, deleteConfig } = useRiegoConfig();
     const { registros, loading: loadingRegistros, addRegistro, editRegistro, removeRegistro } = useRegistrosSensor();
@@ -52,7 +52,7 @@ const App = () => {
                 {loadingUsers ? <p className="loading-text">Cargando usuarios...</p> : <UsersList 
                     users={users} 
                     onEdit={(user) => setEditingUser(user)} 
-                    onDelete={deleteUser} 
+                    onDelete={deleteUserDetails} 
                 />}
             </div>
 
@@ -61,9 +61,9 @@ const App = () => {
                 {editingUser ? (
                     <UserEditForm 
                         user={editingUser} 
-                        onUpdate={updateUser} 
+                        onUpdate={editUser} 
                         onCancel={() => setEditingUser(null)} 
-                    />
+                    />                
                 ) : (<UserCreateForm onCreate={addUser} /> 
                 )}
             </div>
@@ -115,7 +115,7 @@ const App = () => {
                         onUpdate={updateConfig}
                         onCancel={() => setEditingConfig(null)}
                     />
-                ) : <RiegoConfigCreateForm onCreate={addConfig} usuarios={users}/> }
+                ) : null /*<RiegoConfigCreateForm onCreate={addConfig} usuarios={users}/> */}
             </div>
 
 
