@@ -1,24 +1,18 @@
 import React, { useState } from "react";
-import "../style.css";
+import "../style.css"; // Asegúrate de que este archivo esté correctamente vinculado
 
 const UsersList = ({ users, onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 5;
-    const totalPages = Math.ceil(users.length / usersPerPage);
 
-    // Calcular el índice del primer y último usuario a mostrar
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
-    // Cambiar de página
-    const nextPage = () => {
-        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-    };
+    const totalPages = Math.ceil(users.length / usersPerPage);
 
-    const prevPage = () => {
-        if (currentPage > 1) setCurrentPage(currentPage - 1);
-    };
+    const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
     return (
         <div className="table-container">
@@ -41,8 +35,18 @@ const UsersList = ({ users, onEdit, onDelete }) => {
                                 <td>{usuario.correo}</td>
                                 <td>{usuario.rol}</td>
                                 <td>
-                                    <button onClick={() => onEdit(usuario)}>Editar</button>
-                                    <button onClick={() => onDelete(usuario.id)}>Eliminar</button>
+                                    <div className="action-btns">
+                                        <button type="button" className="edit-btn" onClick={() => onEdit(usuario)}>
+                                            Editar
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            className="delete-btn" 
+                                            onClick={() => onDelete(usuario.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))
@@ -56,9 +60,23 @@ const UsersList = ({ users, onEdit, onDelete }) => {
                 </tbody>
             </table>
             <div className="pagination">
-                <button onClick={prevPage} disabled={currentPage === 1}>&laquo; Anterior</button>
-                <span>Página {currentPage} de {totalPages}</span>
-                <button onClick={nextPage} disabled={currentPage === totalPages}>Siguiente &raquo;</button>
+                <button 
+                    type="button" 
+                    onClick={prevPage} 
+                    disabled={currentPage === 1}
+                    aria-label="Página anterior"
+                >
+                    « Anterior
+                </button>
+                <span>Página {currentPage} de {totalPages || 1}</span>
+                <button 
+                    type="button" 
+                    onClick={nextPage} 
+                    disabled={currentPage >= totalPages}
+                    aria-label="Página siguiente"
+                >
+                    Siguiente »
+                </button>
             </div>
         </div>
     );
