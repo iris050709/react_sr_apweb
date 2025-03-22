@@ -69,6 +69,13 @@ const UserCreateForm = ({ onCreate }) => {
         setFechaNacimiento('');
         setSexo('');
         setError('');
+    
+        // Servicio para verificar si el correo ya existe
+    const checkEmailExists = async (email) => {
+        const response = await fetch(`http://127.0.0.1:5000/users?correo=${email}`);
+        const data = await response.json();
+        return data.length > 0;  // Si hay usuarios con el mismo correo, devuelve true
+    };
     };
 
     return (

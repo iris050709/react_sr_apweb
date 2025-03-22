@@ -23,7 +23,7 @@ export default function useUsers() {
             setLoading(false);
         }
     };
-
+    
     // Función para agregar un nuevo usuario
     const addUser = async (user) => {
         try {
