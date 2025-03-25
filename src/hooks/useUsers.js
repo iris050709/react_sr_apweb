@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAllUsers, createUser, updateUser, deleteUser } from '../services/UserService';
+import { getAllUsers, createUser, updateUser, deleteUser, checkEmailExists } from '../services/UserService';
 
 export default function useUsers() {
     const [users, setUsers] = useState([]);
@@ -36,9 +36,9 @@ export default function useUsers() {
 
     // Función para actualizar un usuario
     const editUser = async (userId, userData) => {
-            await updateUser(userId, userData);
-            fetchUsers();
-    };   
+        await updateUser(userId, userData);
+        fetchUsers();
+    };
 
     // Función para eliminar un usuario
     const deleteUserDetails = async (userId) => {
@@ -50,5 +50,5 @@ export default function useUsers() {
         }
     };
 
-    return { users, loading, addUser, editUser, deleteUserDetails };
+    return { users, loading, addUser, editUser, deleteUserDetails, checkEmailExists };
 }

@@ -30,7 +30,7 @@ import ValvulaEditForm from "./components/Valvula/ValvulaEdit"; // Component for
 import "./App.css";
 
 const App = () => {
-    const { users, loading: loadingUsers, addUser, editUser, deleteUserDetails } = useUsers();
+    const { users, loading: loadingUsers, addUser, editUser, deleteUserDetails, checkEmailExists } = useUsers();
     const { alertas, loading: loadingAlerts, addAlert, editAlert, removeAlert } = useAlerts();
     const { configuraciones, loading: loadingConfig, addConfig, updateConfig, deleteConfig } = useRiegoConfig();
     const { registros, loading: loadingRegistros, addRegistro, editRegistro, removeRegistro } = useRegistrosSensor();
@@ -64,7 +64,7 @@ const App = () => {
                         onUpdate={editUser} 
                         onCancel={() => setEditingUser(null)} 
                     />                
-                ) : (<UserCreateForm onCreate={addUser} /> 
+                ) : (<UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists}/> 
                 )}
             </div>
 

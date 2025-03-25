@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './UserCreateForm.css';
 
-const UserCreateForm = ({ onCreate }) => {
+const UserCreateForm = ({ onCreate, checkEmailExists }) => {
     const [nombre, setNombre] = useState('');
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
@@ -15,28 +15,37 @@ const UserCreateForm = ({ onCreate }) => {
         return regex.test(password);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if all fields are filled
         if (!nombre || !correo || !password || !rol || !fechaNacimiento || !sexo) {
-            alert("Todos los campos son obligatorios");
+            setError("Todos los campos son obligatorios.");
             return;
         }
 
-        // Check if password meets criteria
         if (!validatePassword(password)) {
-            alert("La contraseña debe tener al menos 10 caracteres, una mayúscula, una minúscula, un número y un símbolo.");
+            setError("La contraseña debe tener al menos 10 caracteres, una mayúscula, una minúscula, un número y un símbolo.");
             return;
         }
 
-        // Check if the user is at least 18 years old
+        // Validar edad
         const birthDate = new Date(fechaNacimiento);
         const today = new Date();
-        const age = today.getFullYear() - birthDate.getFullYear();
-        const month = today.getMonth() - birthDate.getMonth();
-        if (age < 18 || (age === 18 && month < 0)) {
-            alert("Debes tener al menos 18 años.");
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        const dayDiff = today.getDate() - birthDate.getDate();
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--;
+        }
+        if (age < 18) {
+            setError("Debes tener al menos 18 años.");
+            return;
+        }
+
+        // Verificar si el correo ya existe
+        const emailExists = await checkEmailExists(correo);
+        if (emailExists) {
+            setError("⚠️ Este correo ya está registrado. Por favor, usa otro.");
             return;
         }
 
@@ -51,7 +60,7 @@ const UserCreateForm = ({ onCreate }) => {
 
         onCreate(newUser);
 
-        // Clear form fields
+        // Limpiar campos
         setNombre('');
         setCorreo('');
         setPassword('');
@@ -69,18 +78,12 @@ const UserCreateForm = ({ onCreate }) => {
         setFechaNacimiento('');
         setSexo('');
         setError('');
-    
-        // Servicio para verificar si el correo ya existe
-    const checkEmailExists = async (email) => {
-        const response = await fetch(`http://127.0.0.1:5000/users?correo=${email}`);
-        const data = await response.json();
-        return data.length > 0;  // Si hay usuarios con el mismo correo, devuelve true
-    };
     };
 
     return (
         <div className="form-container">
             <h2>Crear Nuevo Usuario</h2>
+            {error && <p className="error-message">{error}</p>}
             <form className="user-form" onSubmit={handleSubmit}>
                 <label>Nombre:</label>
                 <input
