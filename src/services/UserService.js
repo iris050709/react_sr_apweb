@@ -1,5 +1,28 @@
-const BASE_URL = "http://127.0.0.1:5000/users/";
-const CHECK_EMAIL_URL = "http://127.0.0.1:5000/users/check-email";
+const BASE_URL = "https://3.145.63.126/users/";
+const CHECK_EMAIL_URL = "https://3.145.63.126/users/check-email";
+const LOGIN_URL = "https://3.145.63.126/users/login";
+
+export async function loginUser(correo, password) {
+    try {
+        const response = await fetch(LOGIN_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ correo: correo.trim().toLowerCase(), password }),
+        });
+
+        if (!response.ok) {
+            const result = await response.json();
+            alert(`⚠️ Error: ${result.message || "Ocurrió un error en el servidor"}`);
+            return null;
+        }
+
+        const result = await response.json();
+        alert("✅ Inicio de sesión exitoso");
+        return result; // Aquí podrías retornar la información del usuario o un token, según lo que el backend devuelva.
+    } catch (error) {
+        console.error("❌ Error en loginUser:", error);
+    }
+}
 
 export async function checkEmailExists(correo) {
     try {

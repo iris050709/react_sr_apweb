@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAllUsers, createUser, updateUser, deleteUser, checkEmailExists } from '../services/UserService';
+import { getAllUsers, createUser, updateUser, deleteUser, checkEmailExists, loginUser } from '../services/UserService';
 
 export default function useUsers() {
     const [users, setUsers] = useState([]);
@@ -23,7 +23,7 @@ export default function useUsers() {
             setLoading(false);
         }
     };
-    
+
     // Función para agregar un nuevo usuario
     const addUser = async (user) => {
         try {
@@ -50,5 +50,19 @@ export default function useUsers() {
         }
     };
 
-    return { users, loading, addUser, editUser, deleteUserDetails, checkEmailExists };
+    // Función para hacer login de un usuario
+    const login = async (correo, password) => {
+        try {
+            const result = await loginUser(correo, password);
+            if (result) {
+                // Realizar alguna acción después de un inicio de sesión exitoso
+                console.log("Inicio de sesión exitoso:", result);
+                return result;
+            }
+        } catch (error) {
+            console.error("Error al iniciar sesión:", error);
+        }
+    };
+
+    return { users, loading, addUser, editUser, deleteUserDetails, checkEmailExists, login };
 }
