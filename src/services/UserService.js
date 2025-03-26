@@ -1,6 +1,6 @@
-const BASE_URL = "http://127.0.0.1:5000/users/";
-const CHECK_EMAIL_URL = "http://127.0.0.1:5000/users/check-email";
-const LOGIN_URL = "http://127.0.0.1:5000/users/login";
+const BASE_URL = "https://3.145.63.126/users/";
+const CHECK_EMAIL_URL = "https://3.145.63.126/users/check-email";
+const LOGIN_URL = "https://3.145.63.126/users/login";
 
 export async function loginUser(correo, password) {
     try {
