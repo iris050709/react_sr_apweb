@@ -28,7 +28,7 @@ import RegistroSensorCreateForm from "./components/RegistroSensor/RegistroSensor
 import RegistroSensorEditForm from "./components/RegistroSensor/RegistroSensorEdit";
 import ValvulaCreateForm from "./components/Valvula/ValvulaCreateForm";
 import ValvulaEditForm from "./components/Valvula/ValvulaEdit";
-import useDatosSensor from "../hooks/useDatosSensor";
+import useDatosSensor from "./hooks/useDatosSensor";
 import DatosSensorList from "./components/DatosSensor/DatosSensorList";
 import DatosSensorEditForm from "./components/DatosSensor/DatosSensorEdit";
 import DatosSensorCreateForm from "./components/DatosSensor/DatosSensorCreateForm";
