@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import './LoginForm.css';
 import { FaUser, FaLock } from "react-icons/fa";
-import { useHistory } from "react-router-dom";  // Usamos el hook useHistory de React Router
 
-const LoginForm = ({ onLogin, onRegisterRedirect }) => {
+const LoginForm = ({ onLogin }) => {
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -55,19 +54,11 @@ const LoginForm = ({ onLogin, onRegisterRedirect }) => {
                     </div>
                     <div className="form-buttons">
                         <button className="submit-button" type="submit">Iniciar Sesión</button>
-                        <button
-                            type="button"
-                            className="register-button"
-                            onClick={onRegisterRedirect}  // Llamamos a la función para mostrar el formulario de registro
-                        >
-                            ¿Aún no tienes cuenta? Regístrate
-                        </button>
                     </div>
                 </form>
             </div>
         </div>
     );
 };
-
 
 export default LoginForm;
