@@ -237,16 +237,16 @@ const App = () => {
                     </div>
                     
                     <div className="section">
-                        <h1>Lista de todos los datos del sensor</h1>
+                        <h1>Lista de todos los datos</h1>
                         {loading ? (
-                            <p className="loading-text">Cargando datos de sensores...</p>
+                            <p className="loading-text">Cargando datos...</p>
                         ) : (
                             <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
                         )}
                     </div>
 
                     <div className="section">
-                        <h1>Gestión de datos del sensor</h1>
+                        <h1>Gestión de datos</h1>
                         {editingDato ? (
                             <DatosSensorEditForm 
                                 dato={editingDato} 
