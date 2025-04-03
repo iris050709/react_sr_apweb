@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../style.css"; // Asegúrate de que este archivo esté correctamente vinculado
 
 // Componente para mostrar los registros de Datos Sensor
-const DatosSensorList = ({ datosSensor, onEdit, onDelete }) => {
+const DatosSensorList = ({ datosSensor = [], onEdit, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const datosPerPage = 5;
     const totalPages = Math.ceil(datosSensor.length / datosPerPage);
