@@ -11,8 +11,9 @@ export default function useDatosSensor() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Llamar a fetchDatos al cargar el componente
         fetchDatos();
-    }, []);
+    }, []); // Solo se ejecuta una vez cuando el componente se monta
 
     const fetchDatos = async () => {
         try {
@@ -29,7 +30,7 @@ export default function useDatosSensor() {
     const addDato = async (nuevoDato) => {
         try {
             await createDatosSensor(nuevoDato);
-            fetchDatos();
+            fetchDatos(); // Actualizar la lista inmediatamente después de agregar un nuevo dato
         } catch (error) {
             console.error("Error al agregar dato de sensor:", error);
         }
@@ -38,7 +39,7 @@ export default function useDatosSensor() {
     const editDato = async (datoData) => {
         try {
             await updateDatosSensor(datoData.id, datoData);
-            fetchDatos();
+            fetchDatos(); // Actualizar la lista después de editar un dato
         } catch (error) {
             console.error("Error al actualizar dato de sensor:", error);
         }
@@ -47,7 +48,7 @@ export default function useDatosSensor() {
     const removeDato = async (datoId) => {
         try {
             await deleteDatosSensor(datoId);
-            fetchDatos();
+            fetchDatos(); // Actualizar la lista después de eliminar un dato
         } catch (error) {
             console.error("Error al eliminar dato de sensor:", error);
         }
