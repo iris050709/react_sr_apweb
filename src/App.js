@@ -229,7 +229,7 @@ const App = () => {
                             <SensorCreateForm onCreate={addSensor} />
                         )}
                     </div>
-                    
+
                     <div className="section">
                         <h1>Lista de Valvulas</h1>
                         {loadingValvulas ? (
