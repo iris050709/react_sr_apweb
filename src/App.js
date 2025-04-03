@@ -28,10 +28,6 @@ import RegistroSensorCreateForm from "./components/RegistroSensor/RegistroSensor
 import RegistroSensorEditForm from "./components/RegistroSensor/RegistroSensorEdit";
 import ValvulaCreateForm from "./components/Valvula/ValvulaCreateForm";
 import ValvulaEditForm from "./components/Valvula/ValvulaEdit";
-import useDatosSensor from "./hooks/useDatosSensor";
-import DatosSensorList from "./components/DatosSensor/DatosSensorList";
-import DatosSensorEditForm from "./components/DatosSensor/DatosSensorEdit";
-import DatosSensorCreateForm from "./components/DatosSensor/DatosSensorCreateForm";
 import "./App.css";
 
 const App = () => {
@@ -42,7 +38,6 @@ const App = () => {
     const { riegos, loading: loadingRiegos, addRiego, editRiego, removeRiego } = useRiegos();
     const { sensores, loading: loadingSensores, addSensor, editSensor, removeSensor } = useSensores();
     const { valvulas, loading: loadingValvulas, addValvula, editValvula, removeValvula } = useValvulas();
-    const { datos, loading, addDato, editDato, removeDato } = useDatosSensor();
     const [editingValvula, setEditingValvula] = useState(null);
     const [editingUser, setEditingUser] = useState(null); 
     const [editingSensor, setEditingSensor] = useState(null);
@@ -50,7 +45,6 @@ const App = () => {
     const [editingConfig, setEditingConfig] = useState(null);
     const [editingRiego, setEditingRiego] = useState(null);
     const [editingRegistro, setEditingRegistro] = useState(null);
-    const [editingDato, setEditingDato] = useState(null);
 
     const [loggedIn, setLoggedIn] = useState(false);
 
@@ -87,7 +81,7 @@ const App = () => {
             {!loggedIn ? (
                 <div className="section">
                     <h1>Login</h1>
-                    <LoginForm onLogin={handleLogin} onRegisterRedirect={addUser} />
+                    <LoginForm onLogin={handleLogin} />
                 </div>
             ) : (
                 <>
@@ -236,32 +230,6 @@ const App = () => {
                         )}
                     </div>
                     
-                    <div className="section">
-                        <h1>Lista de todos los datos del sensor</h1>
-                        {loading ? (
-                            <p className="loading-text">Cargando datos de sensores...</p>
-                        ) : (
-                            <DatosSensorList 
-                                datos={datos} 
-                                onEdit={(dato) => setEditingDato(dato)} 
-                                onDelete={removeDato} 
-                            />
-                        )}
-                    </div>
-
-                    <div className="section">
-                        <h1>Gestión de datos del sensor</h1>
-                        {editingDato ? (
-                            <DatosSensorEditForm 
-                                dato={editingDato} 
-                                onUpdate={editDato} 
-                                onCancel={() => setEditingDato(null)} 
-                            />
-                        ) : (
-                            <DatosSensorCreateForm onCreate={addDato} />
-                        )}
-                    </div>
-
                     <div className="section">
                         <h1>Lista de Valvulas</h1>
                         {loadingValvulas ? (
