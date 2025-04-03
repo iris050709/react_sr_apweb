@@ -84,13 +84,7 @@ const App = () => {
 
     return (
         <div className="container">
-            {!loggedIn ? (
-                <div className="section">
-                    <h1>Login</h1>
-                    <LoginForm onLogin={handleLogin} onRegisterRedirect={addUser} />
-                </div>
-            ) : (
-                <>
+            
                     <div className="section">
                         <h1>Lista de Usuarios</h1>
                         {loadingUsers ? <p className="loading-text">Cargando usuarios...</p> : <UsersList 
@@ -283,12 +277,6 @@ const App = () => {
                             <ValvulaCreateForm onCreate={addValvula} />
                         )}
                     </div>
-
-                    <center><div className="section">
-                        <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
-                    </div></center>
-                </>
-            )}
         </div>
     );
 };
