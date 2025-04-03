@@ -241,11 +241,7 @@ const App = () => {
                         {loading ? (
                             <p className="loading-text">Cargando datos de sensores...</p>
                         ) : (
-                            <DatosSensorList 
-                                datos={datos} 
-                                onEdit={(dato) => setEditingDato(dato)} 
-                                onDelete={removeDato} 
-                            />
+                            <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
                         )}
                     </div>
 
