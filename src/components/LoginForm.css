@@ -35,14 +35,14 @@ h2 {
     color: #2ecc71; /* Verde */
     font-size: 20px;
     position: absolute;
-    left: 10px;
+    left: 12px; /* Posición a la izquierda */
     top: 50%;
     transform: translateY(-50%); /* Centra verticalmente el icono */
 }
 
 .input-field {
     width: 100%;
-    padding: 12px 12px 12px 40px; /* Espacio para el icono */
+    padding: 12px 12px 12px 40px; /* Espacio extra para el icono */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
