@@ -53,9 +53,9 @@ const App = () => {
     const [editingRiego, setEditingRiego] = useState(null);
     const [editingRegistro, setEditingRegistro] = useState(null);
     const [editingDato, setEditingDato] = useState(null);
-    const [showRegisterForm, setShowRegisterForm] = useState(false); 
 
     const [loggedIn, setLoggedIn] = useState(false);
+    const [showRegister, setShowRegister] = useState(false); 
 
     useEffect(() => {
         const savedSession = localStorage.getItem("loggedIn");
@@ -93,7 +93,14 @@ const App = () => {
                         <div className="card shadow">
                             <div className="card-body">
                                 <h1 className="card-title text-center">Login</h1>
-                                <LoginForm onLogin={handleLogin} onShowRegisterForm={addUser} />
+                                <LoginForm onLogin={handleLogin} />
+                                <div className="text-center mt-3">
+                                    <button 
+                                        onClick={() => setShowRegister(true)} 
+                                        className="btn btn-link">
+                                        ¿No tienes cuenta? Regístrate aquí
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -198,6 +205,26 @@ const App = () => {
                         <button onClick={handleLogout} className="btn btn-success w-100">Cerrar Sesión</button>
                     </div>
                 </>
+            )}
+            {/* Mostrar el formulario de registro cuando el usuario haga clic en "Registrarse" */}
+            {showRegister && (
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <div className="card shadow">
+                            <div className="card-body">
+                                <h1 className="card-title text-center">Registrar Usuario</h1>
+                                <UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists} />
+                                <div className="text-center mt-3">
+                                    <button 
+                                        onClick={() => setShowRegister(false)} 
+                                        className="btn btn-link">
+                                        Volver al Login
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
