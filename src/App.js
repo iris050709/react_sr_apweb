@@ -113,6 +113,28 @@ const App = () => {
                     </div>
 
                     <div className="section">
+                        <h1>Lista de todos los datos</h1>
+                        {loading ? (
+                            <p className="loading-text">Cargando datos...</p>
+                        ) : (
+                            <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
+                        )}
+                    </div>
+
+                    <div className="section">
+                        <h1>Gestión de datos</h1>
+                        {editingDato ? (
+                            <DatosSensorEditForm 
+                                dato={editingDato} 
+                                onUpdate={editDato} 
+                                onCancel={() => setEditingDato(null)} 
+                            />
+                        ) : (
+                            <DatosSensorCreateForm onCreate={addDato} />
+                        )}
+                    </div>
+
+                    <div className="section">
                         <h1>Lista de Alertas</h1>
                         {loadingAlerts ? (
                             <p className="loading-text">Cargando alertas...</p>
@@ -236,28 +258,6 @@ const App = () => {
                         )}
                     </div>
                     
-                    <div className="section">
-                        <h1>Lista de todos los datos</h1>
-                        {loading ? (
-                            <p className="loading-text">Cargando datos...</p>
-                        ) : (
-                            <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
-                        )}
-                    </div>
-
-                    <div className="section">
-                        <h1>Gestión de datos</h1>
-                        {editingDato ? (
-                            <DatosSensorEditForm 
-                                dato={editingDato} 
-                                onUpdate={editDato} 
-                                onCancel={() => setEditingDato(null)} 
-                            />
-                        ) : (
-                            <DatosSensorCreateForm onCreate={addDato} />
-                        )}
-                    </div>
-
                     <div className="section">
                         <h1>Lista de Valvulas</h1>
                         {loadingValvulas ? (
