@@ -87,7 +87,7 @@ const App = () => {
             {!loggedIn ? (
                 <div className="section">
                     <h1>Login</h1>
-                    <LoginForm onLogin={handleLogin} onRegisterRedirect={addUser} />
+                    <LoginForm onLogin={handleLogin} />
                 </div>
             ) : (
                 <>
