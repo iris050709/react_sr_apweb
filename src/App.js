@@ -53,6 +53,7 @@ const App = () => {
     const [editingRiego, setEditingRiego] = useState(null);
     const [editingRegistro, setEditingRegistro] = useState(null);
     const [editingDato, setEditingDato] = useState(null);
+    const [showRegisterForm, setShowRegisterForm] = useState(false); 
 
     const [loggedIn, setLoggedIn] = useState(false);
 
@@ -92,7 +93,7 @@ const App = () => {
                         <div className="card shadow">
                             <div className="card-body">
                                 <h1 className="card-title text-center">Login</h1>
-                                <LoginForm onLogin={handleLogin} />
+                                <LoginForm onLogin={handleLogin} onShowRegisterForm={addUser} />
                             </div>
                         </div>
                     </div>

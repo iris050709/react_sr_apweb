@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './LoginForm.css';
 import { FaUser, FaLock } from "react-icons/fa";
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin, onShowRegisterForm }) => {
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -56,6 +56,9 @@ const LoginForm = ({ onLogin }) => {
                         <button className="submit-button" type="submit">Iniciar Sesión</button>
                     </div>
                 </form>
+                <div className="register-link">
+                    <button className="register-button" onClick={onShowRegisterForm}>¿No tienes cuenta? Regístrate</button>
+                </div>
             </div>
         </div>
     );
