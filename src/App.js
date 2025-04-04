@@ -194,7 +194,7 @@ const App = () => {
                     </Section>
 
                     <div className="text-center my-4">
-                        <button onClick={handleLogout} className="btn btn-danger">Cerrar Sesión</button>
+                        <button onClick={handleLogout} className="btn btn-success w-100">Cerrar Sesión</button>
                     </div>
                 </>
             )}
