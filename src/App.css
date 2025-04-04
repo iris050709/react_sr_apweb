@@ -4,16 +4,16 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
-  background-color: #e8f5e9; /* Color verde claro para el fondo */
+  background-color: #eaf7e7; /* Fondo verde claro */
 }
 
 /* Títulos */
-h1, h2 {
+h1 {
   font-size: 22px;
-  color: #388e3c; /* Color verde para los títulos */
+  color: #2d6a4f; /* Verde oscuro */
   text-align: center;
   margin-bottom: 10px;
-  border-bottom: 2px solid #388e3c;
+  border-bottom: 2px solid #2d6a4f; /* Línea verde */
   padding-bottom: 5px;
 }
 
@@ -24,20 +24,19 @@ h1, h2 {
   margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid #388e3c; /* Agregar borde verde */
 }
 
 /* Cargando */
 .loading-text {
   text-align: center;
   font-size: 16px;
-  color: #388e3c; /* Texto verde para cargar */
+  color: #4d4d4d; /* Gris oscuro para contraste */
   font-style: italic;
 }
 
 /* Estilos para el botón de Cerrar Sesión */
 .logout-button {
-  background-color: #388e3c; /* Verde para el botón */
+  background-color: #2d6a4f; /* Verde principal */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -48,16 +47,16 @@ h1, h2 {
 }
 
 .logout-button:hover {
-  background-color: #2e7d32; /* Verde más oscuro al pasar el cursor */
-  transform: scale(1.05);
+  background-color: #1b5d3c; /* Verde más oscuro al pasar el cursor */
+  transform: scale(1.05); /* Agranda ligeramente el botón al pasar el cursor */
 }
 
 .logout-button:focus {
-  outline: none;
+  outline: none; /* Elimina el borde de enfoque */
 }
 
 .logout-button:active {
-  background-color: #1b5e20; /* Verde aún más oscuro al hacer clic */
+  background-color: #144d31; /* Verde aún más oscuro al hacer clic */
 }
 
 /* Responsividad para pantallas pequeñas */
@@ -66,12 +65,12 @@ h1, h2 {
     padding: 10px;
   }
 
-  h1, h2 {
+  h1 {
     font-size: 20px;
   }
 
   .logout-button {
-    width: 100%;
+    width: 100%; /* El botón de cerrar sesión ocupa el 100% del ancho */
   }
 }
 
@@ -85,12 +84,12 @@ h1, h2 {
     padding: 8px;
   }
 
-  h1, h2 {
+  h1 {
     font-size: 18px;
   }
 
   .logout-button {
-    padding: 12px;
+    padding: 12px; /* Botón más grande en pantallas pequeñas */
     font-size: 18px;
   }
 }
