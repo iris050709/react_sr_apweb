@@ -55,7 +55,8 @@ const App = () => {
     const [editingDato, setEditingDato] = useState(null);
 
     const [loggedIn, setLoggedIn] = useState(false);
-    const [showRegister, setShowRegister] = useState(false); 
+    const [showRegister, setShowRegister] = useState(false);
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);  // Nuevo estado para el éxito del registro
 
     useEffect(() => {
         const savedSession = localStorage.getItem("loggedIn");
@@ -83,6 +84,18 @@ const App = () => {
     const handleLogout = () => {
         setLoggedIn(false);
         localStorage.removeItem("loggedIn");
+    };
+
+    // Función que maneja el registro de un usuario
+    const handleRegister = (userData) => {
+        addUser(userData)  // Registrar usuario
+            .then(() => {
+                setRegistrationSuccess(true);  // Establecer éxito
+                setShowRegister(false);  // Ocultar el formulario de registro
+            })
+            .catch((error) => {
+                console.error("Error registrando el usuario", error);
+            });
     };
 
     return (
@@ -206,14 +219,13 @@ const App = () => {
                     </div>
                 </>
             )}
-            {/* Mostrar el formulario de registro cuando el usuario haga clic en "Registrarse" */}
-            {showRegister && (
+            {showRegister && !registrationSuccess && (
                 <div className="row justify-content-center">
                     <div className="col-md-6">
                         <div className="card shadow">
                             <div className="card-body">
                                 <h1 className="card-title text-center">Registrar Usuario</h1>
-                                <UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists} />
+                                <UserCreateForm onCreate={handleRegister} checkEmailExists={checkEmailExists} />
                                 <div className="text-center mt-3">
                                     <button 
                                         onClick={() => setShowRegister(false)} 
@@ -222,6 +234,15 @@ const App = () => {
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {registrationSuccess && (
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <div className="alert alert-success text-center">
+                            ¡Registro exitoso! Ahora puedes iniciar sesión.
                         </div>
                     </div>
                 </div>
