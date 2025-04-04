@@ -34,17 +34,21 @@ h2 {
 .icon {
     color: #2ecc71; /* Verde */
     font-size: 20px;
-    margin-right: 10px; /* Espacio entre el icono y el input */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* Centra verticalmente el icono */
 }
 
 .input-field {
     width: 100%;
-    padding: 12px;
+    padding: 12px 12px 12px 40px; /* Espacio para el icono */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     color: #333;
     background-color: #eaf8ea; /* Fondo verde claro */
+    position: relative; /* Para que el icono se posicione dentro */
 }
 
 .input-field:focus {
@@ -85,7 +89,7 @@ h2 {
     }
 
     .input-field {
-        padding: 10px;
+        padding: 10px 10px 10px 30px; /* Ajuste del padding para el icono */
     }
 
     .submit-button {
