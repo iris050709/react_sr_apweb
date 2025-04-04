@@ -38,7 +38,7 @@ label {
 }
 
 .input-field:focus {
-    border-color: #3c5ba5;
+    border-color: #28a745; /* Verde */
     outline: none;
 }
 
@@ -52,7 +52,7 @@ label {
     padding: 10px 15px;
     font-size: 16px;
     color: white;
-    background-color: #3c5ba5;
+    background-color: #28a745; /* Verde */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -60,20 +60,20 @@ label {
 }
 
 .submit-button:hover {
-    background-color: #2a4480;
+    background-color: #218838; /* Verde más oscuro */
 }
 
 .cancel-button {
     padding: 10px 15px;
     font-size: 16px;
-    color: #3c5ba5;
+    color: #28a745; /* Verde */
     background-color: white;
-    border: 1px solid #3c5ba5;
+    border: 1px solid #28a745; /* Verde */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .cancel-button:hover {
-    background-color: #e0e6f1;
+    background-color: #eaf8ea; /* Fondo verde claro */
 }

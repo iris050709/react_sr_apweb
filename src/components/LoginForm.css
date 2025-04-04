@@ -32,7 +32,7 @@ h2 {
 }
 
 .icon {
-    color: #3498db;
+    color: #2ecc71; /* Verde */
     font-size: 20px;
     margin-right: 10px; /* Espacio entre el icono y el input */
 }
@@ -44,12 +44,12 @@ h2 {
     border-radius: 4px;
     font-size: 16px;
     color: #333;
-    background-color: #f9f9f9;
+    background-color: #eaf8ea; /* Fondo verde claro */
 }
 
 .input-field:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #2ecc71; /* Verde */
     background-color: #ffffff;
 }
 
@@ -62,7 +62,7 @@ h2 {
 .submit-button {
     width: 100%;
     padding: 12px;
-    background-color: #3498db;
+    background-color: #2ecc71; /* Verde */
     color: white;
     font-size: 16px;
     border: none;
@@ -72,7 +72,7 @@ h2 {
 }
 
 .submit-button:hover {
-    background-color: #2980b9;
+    background-color: #27ae60; /* Verde más oscuro */
 }
 
 @media (max-width: 768px) {
