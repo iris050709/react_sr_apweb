@@ -57,6 +57,8 @@ const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [registrationSuccess, setRegistrationSuccess] = useState(false);  // Nuevo estado para el éxito del registro
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
 
     useEffect(() => {
         const savedSession = localStorage.getItem("loggedIn");
@@ -70,6 +72,7 @@ const App = () => {
             .then((result) => {
                 if (result) {
                     setLoggedIn(true);
+                    setShowSuccessMessage(false);  // Ocultar el mensaje de éxito del registro
                     localStorage.setItem("loggedIn", true);
                 } else {
                     setLoggedIn(false);
@@ -80,6 +83,7 @@ const App = () => {
                 setLoggedIn(false);
             });
     };
+    
 
     const handleLogout = () => {
         setLoggedIn(false);
@@ -238,7 +242,8 @@ const App = () => {
                     </div>
                 </div>
             )}
-            {registrationSuccess && (
+
+            {registrationSuccess && !loggedIn && (
                 <div className="row justify-content-center">
                     <div className="col-md-6">
                         <div className="alert alert-success text-center">
