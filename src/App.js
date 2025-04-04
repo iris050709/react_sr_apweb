@@ -33,6 +33,7 @@ import DatosSensorList from "./components/DatosSensor/DatosSensorList";
 import DatosSensorEditForm from "./components/DatosSensor/DatosSensorEdit";
 import DatosSensorCreateForm from "./components/DatosSensor/DatosSensorCreateForm";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     const { users, loading: loadingUsers, addUser, editUser, deleteUserDetails, checkEmailExists, login } = useUsers();
@@ -43,6 +44,7 @@ const App = () => {
     const { sensores, loading: loadingSensores, addSensor, editSensor, removeSensor } = useSensores();
     const { valvulas, loading: loadingValvulas, addValvula, editValvula, removeValvula } = useValvulas();
     const { datos, loading, addDato, editDato, removeDato } = useDatosSensor();
+
     const [editingValvula, setEditingValvula] = useState(null);
     const [editingUser, setEditingUser] = useState(null); 
     const [editingSensor, setEditingSensor] = useState(null);
@@ -57,7 +59,7 @@ const App = () => {
     useEffect(() => {
         const savedSession = localStorage.getItem("loggedIn");
         if (savedSession) {
-            setLoggedIn(true); // Restore session if previously logged in
+            setLoggedIn(true);
         }
     }, []);
 
@@ -66,7 +68,7 @@ const App = () => {
             .then((result) => {
                 if (result) {
                     setLoggedIn(true);
-                    localStorage.setItem("loggedIn", true); // Store session in localStorage
+                    localStorage.setItem("loggedIn", true);
                 } else {
                     setLoggedIn(false);
                 }
@@ -79,218 +81,137 @@ const App = () => {
 
     const handleLogout = () => {
         setLoggedIn(false);
-        localStorage.removeItem("loggedIn"); // Remove session from localStorage
+        localStorage.removeItem("loggedIn");
     };
 
     return (
-        <div className="container">
+        <div className="container py-4">
             {!loggedIn ? (
-                <div className="section">
-                    <h1>Login</h1>
-                    <LoginForm onLogin={handleLogin} />
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <div className="card shadow">
+                            <div className="card-body">
+                                <h1 className="card-title text-center">Login</h1>
+                                <LoginForm onLogin={handleLogin} />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <>
-                    <div className="section">
-                        <h1>Lista de Usuarios</h1>
-                        {loadingUsers ? <p className="loading-text">Cargando usuarios...</p> : <UsersList 
-                            users={users} 
-                            onEdit={(user) => setEditingUser(user)} 
-                            onDelete={deleteUserDetails} 
-                        />}
-                    </div>
-
-                    <div className="section">
-                        <h1>Gestión de Usuarios</h1>
+                    {/* Usuario */}
+                    <Section title="Lista de Usuarios" loading={loadingUsers}>
+                        <UsersList users={users} onEdit={setEditingUser} onDelete={deleteUserDetails} />
+                    </Section>
+                    <Section title="Gestión de Usuarios">
                         {editingUser ? (
-                            <UserEditForm 
-                                user={editingUser} 
-                                onUpdate={editUser} 
-                                onCancel={() => setEditingUser(null)} 
-                            />                
-                        ) : (<UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists}/> 
-                        )}
-                    </div>
-
-                    <div className="section">
-                        <h1>Lista de todos los datos</h1>
-                        {loading ? (
-                            <p className="loading-text">Cargando datos...</p>
+                            <UserEditForm user={editingUser} onUpdate={editUser} onCancel={() => setEditingUser(null)} />
                         ) : (
-                            <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
+                            <UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists} />
                         )}
-                    </div>
+                    </Section>
 
-                    <div className="section">
-                        <h1>Gestión de datos</h1>
+                    {/* Datos Sensor */}
+                    <Section title="Lista de todos los datos" loading={loading}>
+                        <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
+                    </Section>
+                    <Section title="Gestión de datos">
                         {editingDato ? (
-                            <DatosSensorEditForm 
-                                dato={editingDato} 
-                                onUpdate={editDato} 
-                                onCancel={() => setEditingDato(null)} 
-                            />
+                            <DatosSensorEditForm dato={editingDato} onUpdate={editDato} onCancel={() => setEditingDato(null)} />
                         ) : (
                             <DatosSensorCreateForm onCreate={addDato} />
                         )}
-                    </div>
+                    </Section>
 
-                    <div className="section">
-                        <h1>Lista de Alertas</h1>
-                        {loadingAlerts ? (
-                            <p className="loading-text">Cargando alertas...</p>
-                        ) : (
-                            <AlertList 
-                                alertas={alertas} 
-                                onEdit={(alerta) => setEditingAlert(alerta)} 
-                                onDelete={removeAlert} 
-                            />
-                        )}
-                    </div>
-
-                    <div className="section">
-                        <h1>Gestión de Alertas</h1>
+                    {/* Alertas */}
+                    <Section title="Lista de Alertas" loading={loadingAlerts}>
+                        <AlertList alertas={alertas} onEdit={setEditingAlert} onDelete={removeAlert} />
+                    </Section>
+                    <Section title="Gestión de Alertas">
                         {editingAlert ? (
-                            <AlertEditForm 
-                                alerta={editingAlert} 
-                                onUpdate={editAlert} 
-                                onCancel={() => setEditingAlert(null)} 
-                            />
+                            <AlertEditForm alerta={editingAlert} onUpdate={editAlert} onCancel={() => setEditingAlert(null)} />
                         ) : (
                             <AlertCreateForm onCreate={addAlert} />
                         )}
-                    </div>
+                    </Section>
 
-                    <div className="section">
-                        <h1>Configuraciones de Riego</h1>
-                        {loadingConfig ? (
-                            <p className="loading-text">Cargando configuraciones de riego...</p>
-                        ) : (
-                            <RiegoConfigList
-                                configuraciones={configuraciones}
-                                onEdit={(config) => setEditingConfig(config)}
-                                onDelete={deleteConfig}
-                            />
+                    {/* Riego Config */}
+                    <Section title="Configuraciones de Riego" loading={loadingConfig}>
+                        <RiegoConfigList configuraciones={configuraciones} onEdit={setEditingConfig} onDelete={deleteConfig} />
+                    </Section>
+                    <Section title="Gestión de Configuraciones de Riego">
+                        {editingConfig && (
+                            <RiegoConfigEditForm config={editingConfig} onUpdate={updateConfig} onCancel={() => setEditingConfig(null)} />
                         )}
-                    </div>
+                    </Section>
 
-                    <div className="section">
-                        <h1>Gestión de Configuraciones de Riego</h1>
-                        {editingConfig ? (
-                            <RiegoConfigEditForm
-                                config={editingConfig}
-                                onUpdate={updateConfig}
-                                onCancel={() => setEditingConfig(null)}
-                            />
-                        ) : null}
-                    </div>
-
-                    <div className="section">
-                        <h1>Lista de Registros de Sensores</h1>
-                        {loadingRegistros ? (
-                            <p className="loading-text">Cargando registros de sensores...</p>
-                        ) : (
-                            <RegistroSensorList 
-                                registros={registros} 
-                                onEdit={(registro) => setEditingRegistro(registro)} 
-                                onDelete={removeRegistro} 
-                            />
-                        )}
-                    </div>
-
-                    <div className="section">
-                        <h1>Gestión de Registros de Sensores</h1>
+                    {/* Registro Sensor */}
+                    <Section title="Lista de Registros de Sensores" loading={loadingRegistros}>
+                        <RegistroSensorList registros={registros} onEdit={setEditingRegistro} onDelete={removeRegistro} />
+                    </Section>
+                    <Section title="Gestión de Registros de Sensores">
                         {editingRegistro ? (
-                            <RegistroSensorEditForm 
-                                registro={editingRegistro} 
-                                onUpdate={editRegistro} 
-                                onCancel={() => setEditingRegistro(null)} 
-                            />
+                            <RegistroSensorEditForm registro={editingRegistro} onUpdate={editRegistro} onCancel={() => setEditingRegistro(null)} />
                         ) : (
-                            <RegistroSensorCreateForm onCreate={addRegistro} onCancel={() => setEditingRegistro(null)}/>
+                            <RegistroSensorCreateForm onCreate={addRegistro} onCancel={() => setEditingRegistro(null)} />
                         )}
-                    </div>
+                    </Section>
 
-                    <div className="section">
-                        <h1>Registros de Riego</h1>
-                        {loadingRiegos ? <p className="loading-text">Cargando registros de riego...</p> : <RiegoList 
-                            riegos={riegos} 
-                            onEdit={(riego) => setEditingRiego(riego)} 
-                            onDelete={removeRiego} 
-                        />}
-                    </div>
-
-                    <div className="section">
-                        <h1>Gestión de Riegos</h1>
+                    {/* Riegos */}
+                    <Section title="Registros de Riego" loading={loadingRiegos}>
+                        <RiegoList riegos={riegos} onEdit={setEditingRiego} onDelete={removeRiego} />
+                    </Section>
+                    <Section title="Gestión de Riegos">
                         {editingRiego ? (
-                            <RiegoEditForm 
-                                riego={editingRiego} 
-                                onUpdate={editRiego}
-                                onCancel={() => setEditingRiego(null)} 
-                            />
+                            <RiegoEditForm riego={editingRiego} onUpdate={editRiego} onCancel={() => setEditingRiego(null)} />
                         ) : (
                             <RiegoCreateForm onCreate={addRiego} />
                         )}
-                    </div>
+                    </Section>
 
-                    <div className="section">
-                        <h1>Lista de Sensores</h1>
-                        {loadingSensores ? (
-                            <p className="loading-text">Cargando sensores...</p>
-                        ) : (
-                            <SensorList 
-                                sensores={sensores} 
-                                onEdit={(sensor) => setEditingSensor(sensor)} 
-                                onDelete={removeSensor} 
-                            />
-                        )}
-                    </div>
-
-                    <div className="section">
-                        <h1>Gestión de Sensores</h1>
+                    {/* Sensores */}
+                    <Section title="Lista de Sensores" loading={loadingSensores}>
+                        <SensorList sensores={sensores} onEdit={setEditingSensor} onDelete={removeSensor} />
+                    </Section>
+                    <Section title="Gestión de Sensores">
                         {editingSensor ? (
-                            <SensorEditForm 
-                                sensor={editingSensor} 
-                                onUpdate={editSensor} 
-                                onCancel={() => setEditingSensor(null)} 
-                            />
+                            <SensorEditForm sensor={editingSensor} onUpdate={editSensor} onCancel={() => setEditingSensor(null)} />
                         ) : (
                             <SensorCreateForm onCreate={addSensor} />
                         )}
-                    </div>
-                    
-                    <div className="section">
-                        <h1>Lista de Valvulas</h1>
-                        {loadingValvulas ? (
-                            <p className="loading-text">Cargando valvulas...</p>
-                        ) : (
-                            <ValvulaList 
-                                valvulas={valvulas} 
-                                onEdit={(valvula) => setEditingValvula(valvula)} 
-                                onDelete={removeValvula} 
-                            />
-                        )}
-                    </div>
+                    </Section>
 
-                    <div className="section">
-                        <h1>Gestión de Valvulas</h1>
+                    {/* Válvulas */}
+                    <Section title="Lista de Válvulas" loading={loadingValvulas}>
+                        <ValvulaList valvulas={valvulas} onEdit={setEditingValvula} onDelete={removeValvula} />
+                    </Section>
+                    <Section title="Gestión de Válvulas">
                         {editingValvula ? (
-                            <ValvulaEditForm 
-                                valvula={editingValvula} 
-                                onUpdate={editValvula} 
-                                onCancel={() => setEditingValvula(null)} 
-                            />
+                            <ValvulaEditForm valvula={editingValvula} onUpdate={editValvula} onCancel={() => setEditingValvula(null)} />
                         ) : (
                             <ValvulaCreateForm onCreate={addValvula} />
                         )}
-                    </div>
+                    </Section>
 
-                    <center><div className="section">
-                        <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
-                    </div></center>
+                    <div className="text-center my-4">
+                        <button onClick={handleLogout} className="btn btn-danger">Cerrar Sesión</button>
+                    </div>
                 </>
             )}
         </div>
     );
 };
+
+// Componente para evitar repetir la estructura Bootstrap
+const Section = ({ title, loading, children }) => (
+    <div className="mb-4">
+        <div className="card shadow-sm">
+            <div className="card-body">
+                <h2 className="card-title">{title}</h2>
+                {loading ? <p className="text-muted">Cargando...</p> : children}
+            </div>
+        </div>
+    </div>
+);
 
 export default App;

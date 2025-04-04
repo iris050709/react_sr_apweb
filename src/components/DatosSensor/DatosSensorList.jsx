@@ -55,13 +55,6 @@ const DatosSensorList = ({ datosSensor = [], onEdit, onDelete }) => {
                                     <div className="action-btns">
                                         <button
                                             type="button"
-                                            className="edit-btn"
-                                            onClick={() => onEdit(dato)}
-                                        >
-                                            Editar
-                                        </button>
-                                        <button
-                                            type="button"
                                             className="delete-btn"
                                             onClick={() => onDelete(dato.id)}
                                         >
