@@ -114,8 +114,8 @@ const App = () => {
                                 <div className="text-center mt-3">
                                     <button 
                                         onClick={() => setShowRegister(true)} 
-                                        className="btn btn-link">
-                                        ¿No tienes cuenta? Regístrate aquí
+                                        className="btn btn-link text-success">
+                                        ¿No tienes cuenta? <strong>Regístrate aquí</strong>
                                     </button>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@ const App = () => {
                                 <div className="text-center mt-3">
                                     <button 
                                         onClick={() => setShowRegister(false)} 
-                                        className="btn btn-link">
+                                        className="btn btn-secondary w-100">
                                         Volver al Login
                                     </button>
                                 </div>

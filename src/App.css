@@ -94,27 +94,17 @@ h1 {
   }
 }
 
-.link-button {
-  background-color: #2d6a4f; /* Verde principal */
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  font-size: 15px;
-  border-radius: 5px;
+.btn-link.text-success {
   text-decoration: none;
-  transition: background-color 0.3s, transform 0.2s;
-  display: inline-block;
+  font-weight: bold;
 }
 
-.link-button:hover {
-  background-color: #1b5d3c;
-  transform: scale(1.05);
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
 }
 
-.link-button:focus {
-  outline: none;
-}
-
-.link-button:active {
-  background-color: #144d31;
+.btn-secondary:hover {
+  background-color: #5a6268;
+  color: white;
 }
