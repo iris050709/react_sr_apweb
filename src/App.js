@@ -58,22 +58,27 @@ const App = () => {
     const [showRegister, setShowRegister] = useState(false);
     const [registrationSuccess, setRegistrationSuccess] = useState(false);  // Nuevo estado para el éxito del registro
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [userRole, setUserRole] = useState(null);
 
 
     useEffect(() => {
         const savedSession = localStorage.getItem("loggedIn");
+        const savedRole = localStorage.getItem("userRole");
         if (savedSession) {
             setLoggedIn(true);
+            setUserRole(savedRole);
         }
     }, []);
+    
 
     const handleLogin = (userCredentials) => {
         login(userCredentials.correo, userCredentials.password)
-            .then((result) => {
-                if (result) {
+            .then((user) => {
+                if (user) {
                     setLoggedIn(true);
-                    setShowSuccessMessage(false);  // Ocultar el mensaje de éxito del registro
+                    setUserRole(user.rol); // Asumiendo que el backend retorna el rol como `rol`
                     localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("userRole", user.rol);
                 } else {
                     setLoggedIn(false);
                 }
@@ -82,13 +87,15 @@ const App = () => {
                 console.error("Error logging in", error);
                 setLoggedIn(false);
             });
-    };
+    };    
     
 
     const handleLogout = () => {
         setLoggedIn(false);
+        setUserRole(null);
         localStorage.removeItem("loggedIn");
-    };
+        localStorage.removeItem("userRole");
+    };    
 
     // Función que maneja el registro de un usuario
     const handleRegister = (userData) => {
@@ -124,17 +131,20 @@ const App = () => {
                 </div>
             ) : (
                 <>
-                    {/* Usuario */}
-                    <Section title="Lista de Usuarios" loading={loadingUsers}>
-                        <UsersList users={users} onEdit={setEditingUser} onDelete={deleteUserDetails} />
-                    </Section>
-                    <Section title="Gestión de Usuarios">
-                        {editingUser ? (
-                            <UserEditForm user={editingUser} onUpdate={editUser} onCancel={() => setEditingUser(null)} />
-                        ) : (
-                            <UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists} />
-                        )}
-                    </Section>
+                {userRole === "Administrador" && (
+                    <>
+                        {/* TODAS las secciones para Administrador aquí */}
+                        {/* Usuarios */}
+                        <Section title="Lista de Usuarios" loading={loadingUsers}>
+                            <UsersList users={users} onEdit={setEditingUser} onDelete={deleteUserDetails} />
+                        </Section>
+                        <Section title="Gestión de Usuarios">
+                            {editingUser ? (
+                                <UserEditForm user={editingUser} onUpdate={editUser} onCancel={() => setEditingUser(null)} />
+                            ) : (
+                                <UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists} />
+                            )}
+                        </Section>
 
                     {/* Datos Sensor */}
                     <Section title="Lista de todos los datos" loading={loading}>
@@ -217,7 +227,20 @@ const App = () => {
                             <ValvulaCreateForm onCreate={addValvula} />
                         )}
                     </Section>
+                    </>
+                )}
+                    {userRole === "Usuario" && (
+                        <>
+                            {/* Muestra sólo las vistas necesarias para el usuario */}
+                            <Section title="Datos del Sensor" loading={loading}>
+                                <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
+                            </Section>
 
+                            <Section title="Registro de Riegos" loading={loadingRiegos}>
+                                <RiegoList riegos={riegos} onEdit={setEditingRiego} onDelete={removeRiego} />
+                            </Section>
+                        </>
+                    )}
                     <div className="text-center my-4">
                         <button onClick={handleLogout} className="btn btn-success w-100">Cerrar Sesión</button>
                     </div>
