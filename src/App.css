@@ -93,3 +93,28 @@ h1 {
     font-size: 18px;
   }
 }
+
+.link-button {
+  background-color: #2d6a4f; /* Verde principal */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+  display: inline-block;
+}
+
+.link-button:hover {
+  background-color: #1b5d3c;
+  transform: scale(1.05);
+}
+
+.link-button:focus {
+  outline: none;
+}
+
+.link-button:active {
+  background-color: #144d31;
+}
