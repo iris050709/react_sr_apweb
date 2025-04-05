@@ -62,26 +62,18 @@ const App = () => {
 
     useEffect(() => {
         const savedSession = localStorage.getItem("loggedIn");
-        const savedUser = localStorage.getItem("user");
-    
-        if (savedSession && savedUser) {
+        if (savedSession) {
             setLoggedIn(true);
-            setCurrentUser(JSON.parse(savedUser));
         }
     }, []);
-    
-
-    const [currentUser, setCurrentUser] = useState(null);
 
     const handleLogin = (userCredentials) => {
         login(userCredentials.correo, userCredentials.password)
             .then((result) => {
                 if (result) {
-                    setCurrentUser(result); // Guardar el usuario completo
                     setLoggedIn(true);
-                    setShowSuccessMessage(false);
+                    setShowSuccessMessage(false);  // Ocultar el mensaje de éxito del registro
                     localStorage.setItem("loggedIn", true);
-                    localStorage.setItem("user", JSON.stringify(result)); // Guardar en localStorage
                 } else {
                     setLoggedIn(false);
                 }
@@ -91,16 +83,12 @@ const App = () => {
                 setLoggedIn(false);
             });
     };
-
     
 
     const handleLogout = () => {
         setLoggedIn(false);
-        setCurrentUser(null);
         localStorage.removeItem("loggedIn");
-        localStorage.removeItem("user");
     };
-    
 
     // Función que maneja el registro de un usuario
     const handleRegister = (userData) => {
@@ -134,26 +122,9 @@ const App = () => {
                         </div>
                     </div>
                 </div>
-            ) : currentUser?.rol === "Usuario" ? (
-                // Vista solo para usuarios normales
-                <div className="text-center my-5">
-                    <h2>Bienvenido, {currentUser.nombre}</h2>
-                    <p>Correo: {currentUser.correo}</p>
-                    <p>Rol: {currentUser.rol}</p>
-                    <Section title="Lista de todos los datos" loading={loading}>
-                        <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
-                    </Section>
-                    <Section title="Gestión de datos">
-                        {editingDato ? (
-                            <DatosSensorEditForm dato={editingDato} onUpdate={editDato} onCancel={() => setEditingDato(null)} />
-                        ) : (
-                            <DatosSensorCreateForm onCreate={addDato} />
-                        )}
-                    </Section>
-                    <button onClick={handleLogout} className="btn btn-success mt-4">Cerrar sesión</button>
-                </div>
             ) : (
                 <>
+                    {/* Usuario */}
                     <Section title="Lista de Usuarios" loading={loadingUsers}>
                         <UsersList users={users} onEdit={setEditingUser} onDelete={deleteUserDetails} />
                     </Section>
@@ -165,6 +136,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Datos Sensor */}
                     <Section title="Lista de todos los datos" loading={loading}>
                         <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
                     </Section>
@@ -176,6 +148,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Alertas */}
                     <Section title="Lista de Alertas" loading={loadingAlerts}>
                         <AlertList alertas={alertas} onEdit={setEditingAlert} onDelete={removeAlert} />
                     </Section>
@@ -187,6 +160,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Riego Config */}
                     <Section title="Configuraciones de Riego" loading={loadingConfig}>
                         <RiegoConfigList configuraciones={configuraciones} onEdit={setEditingConfig} onDelete={deleteConfig} />
                     </Section>
@@ -196,6 +170,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Registro Sensor */}
                     <Section title="Lista de Registros de Sensores" loading={loadingRegistros}>
                         <RegistroSensorList registros={registros} onEdit={setEditingRegistro} onDelete={removeRegistro} />
                     </Section>
@@ -207,6 +182,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Riegos */}
                     <Section title="Registros de Riego" loading={loadingRiegos}>
                         <RiegoList riegos={riegos} onEdit={setEditingRiego} onDelete={removeRiego} />
                     </Section>
@@ -218,6 +194,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Sensores */}
                     <Section title="Lista de Sensores" loading={loadingSensores}>
                         <SensorList sensores={sensores} onEdit={setEditingSensor} onDelete={removeSensor} />
                     </Section>
@@ -229,6 +206,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Válvulas */}
                     <Section title="Lista de Válvulas" loading={loadingValvulas}>
                         <ValvulaList valvulas={valvulas} onEdit={setEditingValvula} onDelete={removeValvula} />
                     </Section>
