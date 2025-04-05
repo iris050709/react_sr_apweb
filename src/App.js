@@ -56,51 +56,46 @@ const App = () => {
 
     const [loggedIn, setLoggedIn] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
-    const [registrationSuccess, setRegistrationSuccess] = useState(false);
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);  // Nuevo estado para el éxito del registro
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [userRole, setUserRole] = useState(null);
+
 
     useEffect(() => {
         const savedSession = localStorage.getItem("loggedIn");
-        const savedRole = localStorage.getItem("userRole");
         if (savedSession) {
             setLoggedIn(true);
-            setUserRole(savedRole);
         }
     }, []);
-    
+
     const handleLogin = (userCredentials) => {
         login(userCredentials.correo, userCredentials.password)
-            .then((user) => {
-                if (user) {
+            .then((result) => {
+                if (result) {
                     setLoggedIn(true);
-                    setUserRole(user.rol);
+                    setShowSuccessMessage(false);  // Ocultar el mensaje de éxito del registro
                     localStorage.setItem("loggedIn", true);
-                    localStorage.setItem("userRole", user.rol);
                 } else {
                     setLoggedIn(false);
-                    setUserRole(null);
                 }
             })
             .catch((error) => {
                 console.error("Error logging in", error);
                 setLoggedIn(false);
-                setUserRole(null);
             });
-    };    
+    };
+    
 
     const handleLogout = () => {
         setLoggedIn(false);
-        setUserRole(null);
         localStorage.removeItem("loggedIn");
-        localStorage.removeItem("userRole");
-    };    
+    };
 
+    // Función que maneja el registro de un usuario
     const handleRegister = (userData) => {
-        addUser(userData)
+        addUser(userData)  // Registrar usuario
             .then(() => {
-                setRegistrationSuccess(true);
-                setShowRegister(false);
+                setRegistrationSuccess(true);  // Establecer éxito
+                setShowRegister(false);  // Ocultar el formulario de registro
             })
             .catch((error) => {
                 console.error("Error registrando el usuario", error);
@@ -129,19 +124,19 @@ const App = () => {
                 </div>
             ) : (
                 <>
-                {userRole === "Administrador" && (
-                    <>
-                        <Section title="Lista de Usuarios" loading={loadingUsers}>
-                            <UsersList users={users} onEdit={setEditingUser} onDelete={deleteUserDetails} />
-                        </Section>
-                        <Section title="Gestión de Usuarios">
-                            {editingUser ? (
-                                <UserEditForm user={editingUser} onUpdate={editUser} onCancel={() => setEditingUser(null)} />
-                            ) : (
-                                <UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists} />
-                            )}
-                        </Section>
+                    {/* Usuario */}
+                    <Section title="Lista de Usuarios" loading={loadingUsers}>
+                        <UsersList users={users} onEdit={setEditingUser} onDelete={deleteUserDetails} />
+                    </Section>
+                    <Section title="Gestión de Usuarios">
+                        {editingUser ? (
+                            <UserEditForm user={editingUser} onUpdate={editUser} onCancel={() => setEditingUser(null)} />
+                        ) : (
+                            <UserCreateForm onCreate={addUser} checkEmailExists={checkEmailExists} />
+                        )}
+                    </Section>
 
+                    {/* Datos Sensor */}
                     <Section title="Lista de todos los datos" loading={loading}>
                         <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
                     </Section>
@@ -153,6 +148,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Alertas */}
                     <Section title="Lista de Alertas" loading={loadingAlerts}>
                         <AlertList alertas={alertas} onEdit={setEditingAlert} onDelete={removeAlert} />
                     </Section>
@@ -164,6 +160,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Riego Config */}
                     <Section title="Configuraciones de Riego" loading={loadingConfig}>
                         <RiegoConfigList configuraciones={configuraciones} onEdit={setEditingConfig} onDelete={deleteConfig} />
                     </Section>
@@ -173,6 +170,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Registro Sensor */}
                     <Section title="Lista de Registros de Sensores" loading={loadingRegistros}>
                         <RegistroSensorList registros={registros} onEdit={setEditingRegistro} onDelete={removeRegistro} />
                     </Section>
@@ -184,6 +182,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Riegos */}
                     <Section title="Registros de Riego" loading={loadingRiegos}>
                         <RiegoList riegos={riegos} onEdit={setEditingRiego} onDelete={removeRiego} />
                     </Section>
@@ -195,6 +194,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Sensores */}
                     <Section title="Lista de Sensores" loading={loadingSensores}>
                         <SensorList sensores={sensores} onEdit={setEditingSensor} onDelete={removeSensor} />
                     </Section>
@@ -206,6 +206,7 @@ const App = () => {
                         )}
                     </Section>
 
+                    {/* Válvulas */}
                     <Section title="Lista de Válvulas" loading={loadingValvulas}>
                         <ValvulaList valvulas={valvulas} onEdit={setEditingValvula} onDelete={removeValvula} />
                     </Section>
@@ -216,19 +217,7 @@ const App = () => {
                             <ValvulaCreateForm onCreate={addValvula} />
                         )}
                     </Section>
-                    </>
-                )}
-                    {userRole === "Usuario" && (
-                        <>
-                            <Section title="Datos del Sensor" loading={loading}>
-                                <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
-                            </Section>
 
-                            <Section title="Registro de Riegos" loading={loadingRiegos}>
-                                <RiegoList riegos={riegos} onEdit={setEditingRiego} onDelete={removeRiego} />
-                            </Section>
-                        </>
-                    )}
                     <div className="text-center my-4">
                         <button onClick={handleLogout} className="btn btn-success w-100">Cerrar Sesión</button>
                     </div>
@@ -267,6 +256,7 @@ const App = () => {
     );
 };
 
+// Componente para evitar repetir la estructura Bootstrap
 const Section = ({ title, loading, children }) => (
     <div className="mb-4">
         <div className="card shadow-sm">
