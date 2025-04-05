@@ -3,8 +3,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 75vh; /* Asegura que ocupe toda la altura de la página */
     background-color: #f4f4f4;
+    margin: 0; /* Elimina márgenes por defecto */
 }
 
 .login-container {

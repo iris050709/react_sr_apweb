@@ -1,6 +1,6 @@
 /* Estilos generales */
 .container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -60,7 +60,7 @@ h1 {
 }
 
 /* Responsividad para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 500px) {
   .section {
     padding: 10px;
   }
