@@ -18,11 +18,17 @@ export async function loginUser(correo, password) {
 
         const result = await response.json();
         alert("✅ Inicio de sesión exitoso");
-        return result; // Aquí podrías retornar la información del usuario o un token, según lo que el backend devuelva.
+
+        // Guardar el rol en localStorage
+        localStorage.setItem("userRole", result.rol); // Guarda el rol
+        localStorage.setItem("loggedIn", true);
+
+        return result;
     } catch (error) {
         console.error("❌ Error en loginUser:", error);
     }
 }
+
 
 export async function checkEmailExists(correo) {
     try {
