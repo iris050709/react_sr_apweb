@@ -14,12 +14,11 @@
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
 }
 
-
 h2 {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
+    color: rgba(51, 51, 51, 0.8); /* Letra semi-transparente */
 }
 
 .user-form {
@@ -31,7 +30,7 @@ h2 {
 label {
     font-size: 16px;
     margin-bottom: 5px;
-    color: #333;
+    color: rgba(51, 51, 51, 0.8); /* Letra semi-transparente */
 }
 
 .input-field {
