@@ -11,9 +11,14 @@ export default function useDatosSensor() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Llamar a fetchDatos al cargar el componente
-        fetchDatos();
-    }, []); // Solo se ejecuta una vez cuando el componente se monta
+        fetchDatos(); // Llamada inicial al montar
+    
+        const interval = setInterval(() => {
+            fetchDatos(); // Se llama cada 5 segundos
+        }, 5000);
+    
+        return () => clearInterval(interval); // Limpieza al desmontar
+    }, []);    
 
     const fetchDatos = async () => {
         try {
