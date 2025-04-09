@@ -90,8 +90,8 @@ label {
 }
 
 .error-message {
-    background-color: rgba(255, 0, 0, 0.3); /* Fondo rojo semi-transparente */
-    color: rgb(0, 0, 0); /* Texto rojo */
+    background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo menos transparente para mejor contraste */
+    color: white; /* Texto en blanco para buen contraste sobre fondo rojo */
     font-weight: bold; /* Texto en negritas */
     padding: 10px;
     border-radius: 5px;
