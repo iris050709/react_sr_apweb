@@ -5,7 +5,13 @@
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #eaf7e7; /* Fondo verde claro */
+  background-image: url('https://i.pinimg.com/736x/8f/5f/de/8f5fde59347ba19a5421b48a95dfa32a.jpg'); /* Imagen de fondo */
+  background-size: cover; /* Ajusta la imagen para cubrir el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repite la imagen */
+  border-radius: 10px; /* Opcional, por si quieres bordes redondeados */
 }
+
 
 /* Títulos */
 h1 {
