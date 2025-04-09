@@ -25,12 +25,15 @@ h1 {
 
 /* Secciones */
 .section {
-  background: white;
+  background: url('https://i.pinimg.com/736x/2e/1b/84/2e1b84212d177aadc7275ff6023ac5fd.jpg') no-repeat center center;
+  background-size: cover;
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white; /* Opcional, para que el texto se vea mejor sobre la imagen */
 }
+
 
 /* Cargando */
 .loading-text {
