@@ -88,13 +88,3 @@ label {
 .cancel-button:hover {
     background-color: #eaf8ea; /* Fondo verde claro */
 }
-
-.error-message {
-    background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo menos transparente para mejor contraste */
-    color: white; /* Texto en blanco para buen contraste sobre fondo rojo */
-    font-weight: bold; /* Texto en negritas */
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    text-align: center;
-}
