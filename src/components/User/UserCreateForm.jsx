@@ -121,7 +121,6 @@ const UserCreateForm = ({ onCreate, checkEmailExists }) => {
                 >
                     <option value="">Seleccione Rol</option>
                     <option value="Administrador">Administrador</option>
-                    <option value="Usuario">Usuario</option>
                 </select>
                 <label>Fecha de Nacimiento:</label>
                 <input

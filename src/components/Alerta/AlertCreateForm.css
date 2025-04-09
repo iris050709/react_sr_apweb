@@ -6,9 +6,14 @@
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
+    background-image: url('https://i.pinimg.com/736x/38/ac/5f/38ac5f067cef912eab83854ebca1353d.jpg'); /* Imagen de fondo */
+    background-size: cover; /* La imagen cubrirá todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* La imagen no se repite */
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 h2 {
     text-align: center;
