@@ -6,7 +6,10 @@
 .styled-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f4f6fb;
+    background-color: transparent; /* Fondo transparente */
+    background-image: url('https://i.pinimg.com/736x/51/ef/e9/51efe98693636de06063d154e44c9f85.jpg'); /* Imagen de fondo */
+    background-size: cover;
+    background-position: center;
     color: #333;
     border-radius: 8px;
     overflow: hidden;
@@ -17,21 +20,22 @@
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo transparente pero con opacidad para mejorar la legibilidad */
 }
 
 .styled-table th {
-    background-color: #2ecc71; /* Verde */
+    background-color: rgba(46, 204, 113, 0.7); /* Verde con transparencia */
     color: white;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 .styled-table tbody tr:nth-child(even) {
-    background-color: #eaf8ea; /* Verde claro */
+    background-color: rgba(234, 248, 234, 0.7); /* Verde claro con opacidad */
 }
 
 .styled-table tbody tr:hover {
-    background-color: #d0f0d6; /* Verde más suave */
+    background-color: rgba(208, 240, 214, 0.7); /* Verde más suave con opacidad */
     cursor: pointer;
 }
 
@@ -42,7 +46,7 @@
 }
 
 .pagination button {
-    background-color: #2ecc71; /* Verde */
+    background-color: rgba(46, 204, 113, 0.7); /* Verde con transparencia */
     color: white;
     border: none;
     padding: 8px 12px;
@@ -53,7 +57,7 @@
 }
 
 .pagination button:hover {
-    background-color: #27ae60; /* Verde más oscuro */
+    background-color: rgba(39, 174, 96, 0.7); /* Verde más oscuro con transparencia */
 }
 
 .pagination button:disabled {
@@ -77,19 +81,19 @@
 }
 
 .styled-table .action-btns .edit-btn {
-    background-color: #2ecc71; /* Verde */
+    background-color: rgba(46, 204, 113, 0.7); /* Verde con transparencia */
     color: white;
 }
 
 .styled-table .action-btns .edit-btn:hover {
-    background-color: #27ae60; /* Verde más oscuro */
+    background-color: rgba(39, 174, 96, 0.7); /* Verde más oscuro con transparencia */
 }
 
 .styled-table .action-btns .delete-btn {
-    background-color: #0c2b06; /* Azul */
+    background-color: rgba(12, 43, 6, 0.7); /* Azul con transparencia */
     color: white;
 }
 
 .styled-table .action-btns .delete-btn:hover {
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7); /* Negro con transparencia */
 }
