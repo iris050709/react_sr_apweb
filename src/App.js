@@ -140,14 +140,6 @@ const App = () => {
                     <Section title="Lista de todos los datos" loading={loading}>
                         <DatosSensorList datosSensor={datos} onEdit={setEditingDato} onDelete={removeDato} />
                     </Section>
-                    <Section title="Gestión de datos">
-                        {editingDato ? (
-                            <DatosSensorEditForm dato={editingDato} onUpdate={editDato} onCancel={() => setEditingDato(null)} />
-                        ) : (
-                            <DatosSensorCreateForm onCreate={addDato} />
-                        )}
-                    </Section>
-
                     {/* Alertas */}
                     <Section title="Lista de Alertas" loading={loadingAlerts}>
                         <AlertList alertas={alertas} onEdit={setEditingAlert} onDelete={removeAlert} />
