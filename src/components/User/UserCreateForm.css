@@ -91,7 +91,7 @@ label {
 
 .error-message {
     background-color: rgba(255, 0, 0, 0.3); /* Fondo rojo semi-transparente */
-    color: red; /* Texto rojo */
+    color: rgb(0, 0, 0); /* Texto rojo */
     font-weight: bold; /* Texto en negritas */
     padding: 10px;
     border-radius: 5px;
